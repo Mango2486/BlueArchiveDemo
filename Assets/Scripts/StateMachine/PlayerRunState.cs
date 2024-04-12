@@ -9,13 +9,14 @@ public class PlayerRunState : PlayerBaseState
       private Vector3 dampedTargetRotationCurrentVelocity;
       private Vector3 dampedTargetRotationPassedTime;
    
+   
     public PlayerRunState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
     {
     }
     public override void EnterState()
-    { 
-       Debug.Log("Enter Run State");
+    {
        Initialize();
+       Context.PlayerAnimator.Play("Azusa_Original_Move_Ing");
     }
 
     public override void UpdateState()
@@ -31,13 +32,14 @@ public class PlayerRunState : PlayerBaseState
     public override void FixedUpdateState()
     {
         Move();
+     
     }
 
     public override void CheckSwitchStates()
     {
-       if (!context.PlayerInput.IsMovePressed)
+       if (!Context.PlayerInput.IsMovePressed)
        {
-          SwitchState(factory.Idle());
+          SwitchState(Factory.Idle());
        }
     }
 
@@ -46,13 +48,13 @@ public class PlayerRunState : PlayerBaseState
         
     }
     
-     private void Move()
+    private void Move()
       {
-         if (context.PlayerInput.MoveDirection == Vector2.zero)
+         if (Context.PlayerInput.MoveDirection == Vector2.zero)
          {
             return;
          }
-         Vector3 inputDirection = new Vector3(context.PlayerInput.MoveDirection.x, 0, context.PlayerInput.MoveDirection.y);
+         Vector3 inputDirection = new Vector3(Context.PlayerInput.MoveDirection.x, 0, Context.PlayerInput.MoveDirection.y);
 
          float targetRotationYAngle = Rotate(inputDirection);
 
@@ -62,28 +64,28 @@ public class PlayerRunState : PlayerBaseState
          //使用AddForce而不是直接设置刚体的velocity
          //使用VelocityChange的模式可以使得AddForce不受质量和时间的影响（mass，time）
          Vector3 currentPlayerHorizontalVelocity = GetPlayerHorizontalVelocity();
-         context.PlayerRigidbody.AddForce(targetRotationDirection * movementSpeed - currentPlayerHorizontalVelocity, ForceMode.VelocityChange);
+         Context.PlayerRigidbody.AddForce(targetRotationDirection * movementSpeed - currentPlayerHorizontalVelocity, ForceMode.VelocityChange);
 
       }
 
-      private Vector3 GetTargetRotationDirection(float targetAngle)
+    private Vector3 GetTargetRotationDirection(float targetAngle)
       {
          return Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
       }
 
-      private void Initialize()
+    private void Initialize()
       {
          timeToReachTargetRotation.y = 0.14f;
       }
 
-      private float Rotate(Vector3 direction)
+    private float Rotate(Vector3 direction)
       {
          float directionAngle = UpdateTargetRotation(direction);
          RotateTowardsTargetRotation();
          return directionAngle;
       }
       
-      private float GetDirectionAngle(Vector3 direction)
+    private float GetDirectionAngle(Vector3 direction)
       {
          float directionAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
 
@@ -95,7 +97,7 @@ public class PlayerRunState : PlayerBaseState
          return directionAngle;
       }
       
-      private float UpdateTargetRotation(Vector3 direction)
+    private float UpdateTargetRotation(Vector3 direction)
       {
          float directionAngle = GetDirectionAngle(direction);
          if (directionAngle != currentTargetRotation.y)
@@ -105,16 +107,16 @@ public class PlayerRunState : PlayerBaseState
       
          return directionAngle;
       }
-      private void UpdateTargetRotationData(float directionAngle)
+    private void UpdateTargetRotationData(float directionAngle)
       {  
          
          currentTargetRotation.y = directionAngle;
          dampedTargetRotationPassedTime.y = 0f;
       }
 
-      private void RotateTowardsTargetRotation()
+    private void RotateTowardsTargetRotation()
       {
-         float currentYAngle = context.PlayerRigidbody.rotation.eulerAngles.y;
+         float currentYAngle = Context.PlayerRigidbody.rotation.eulerAngles.y;
          if (Mathf.Abs(currentYAngle - currentTargetRotation.y) < Mathf.Epsilon)
          {
             return;
@@ -124,20 +126,20 @@ public class PlayerRunState : PlayerBaseState
          float smoothedYAngle = Mathf.SmoothDampAngle(currentYAngle, currentTargetRotation.y, ref dampedTargetRotationCurrentVelocity.y,timeToReachTargetRotation.y - dampedTargetRotationPassedTime.y );
          dampedTargetRotationPassedTime.y += Time.fixedDeltaTime;
          Quaternion targetRotation = Quaternion.Euler(0f, smoothedYAngle, 0f);
-         context.PlayerRigidbody.MoveRotation(targetRotation);
+         Context.PlayerRigidbody.MoveRotation(targetRotation);
       }
 
 
-      //获得指定的移动速度
-      private float GetMovementSpeed()
+    //获得指定的移动速度
+    private float GetMovementSpeed()
       {
-         return context.BaseSpeed * context.SpeedModifier;
+         return Context.BaseSpeed * Context.SpeedModifier;
       }
       
-      //获得水平方向的移动速度
-      private Vector3 GetPlayerHorizontalVelocity()
+    //获得水平方向的移动速度
+    private Vector3 GetPlayerHorizontalVelocity()
       {
-         Vector3 playerHorizontalVelocity = context.PlayerRigidbody.velocity;
+         Vector3 playerHorizontalVelocity = Context.PlayerRigidbody.velocity;
          playerHorizontalVelocity.y = 0f;
 
          return playerHorizontalVelocity;

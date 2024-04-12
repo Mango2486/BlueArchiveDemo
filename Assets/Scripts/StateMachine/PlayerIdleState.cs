@@ -6,10 +6,12 @@ public class PlayerIdleState : PlayerBaseState
 {   
     public PlayerIdleState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
     {
+       
+       
     }
     public override void EnterState()
     {
-        Debug.Log("Idle State");
+        Context.PlayerAnimator.Play("Azusa_Original_Normal_Idle");
     }
 
     public override void UpdateState()
@@ -29,14 +31,16 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (context.PlayerInput.IsMovePressed)
+        if (Context.PlayerInput.IsMovePressed)
         {
-            SwitchState(factory.Run());
+            SwitchState(Factory.Run());
+            Debug.Log(CurrentSuperState);
         }
+        
     }
-
+    
     public override void InitialSubState()
-    {
+    {   
         
     }
 

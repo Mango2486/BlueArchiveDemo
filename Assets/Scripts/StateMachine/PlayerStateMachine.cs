@@ -33,11 +33,6 @@ public class PlayerStateMachine : MonoBehaviour
     private PlayerInput playerInput;
     public PlayerInput PlayerInput { get; private set; }
     
-  
-
-
-  
-   
    
     private void Awake()
     {
@@ -48,18 +43,18 @@ public class PlayerStateMachine : MonoBehaviour
         
         //设置状态机
         states = new PlayerStateFactory(this);//使得PlayerStateFactory实例获得PlayerStateMachine引用。
-        currentState = states.Idle();//设置初始状态，调用Idle()返回PlayerIdleState实例。
+        currentState = states.Movement();//设置初始状态，调用Idle()返回PlayerIdleState实例。
         currentState.EnterState();//调用PlayerIdleState下的EnterState();
     }
 
     private void Update()
     {
-        currentState.UpdateState();
+        currentState.UpdateStates();
     }
 
     private void FixedUpdate()
     {
-        currentState.FixedUpdateState();
+        currentState.FixedUpdateStates();
     }
 
     private void Initialize()
