@@ -70,8 +70,6 @@ public abstract class PlayerBaseState
       {
          currentSuperState.SetSubState(newState);
       }
-      Debug.Log(currentSuperState);
-      Debug.Log(currentSubState);
    }
 
    public void UpdateStates()

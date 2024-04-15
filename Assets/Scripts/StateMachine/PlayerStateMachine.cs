@@ -43,7 +43,7 @@ public class PlayerStateMachine : MonoBehaviour
         
         //设置状态机
         states = new PlayerStateFactory(this);//使得PlayerStateFactory实例获得PlayerStateMachine引用。
-        currentState = states.Movement();//设置初始状态，调用Idle()返回PlayerIdleState实例。
+        currentState = states.Stand();//设置初始状态，调用Idle()返回PlayerIdleState实例。
         currentState.EnterState();//调用PlayerIdleState下的EnterState();
     }
 

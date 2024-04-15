@@ -15,19 +15,24 @@ public class PlayerStateFactory
 
     #region Create Concrete States
 
-    public PlayerBaseState Movement()
+    public PlayerBaseState Stand()
     {
-        return new PlayerMovementState(context, this);
+        return new PlayerStandState(context, this);
     }
     
-    public PlayerBaseState Idle()
+    public PlayerBaseState StandIdle()
     {
         return new PlayerIdleState(context,this);
     }
 
-    public PlayerBaseState Run()
+    public PlayerBaseState StandMove()
     {
-        return new PlayerRunState(context,this);
+        return new PlayerStandMoveState(context,this);
+    }
+    
+    public PlayerBaseState StandMoveEnd()
+    {
+        return new PlayerStandMoveEndState(context, this);
     }
     
     #endregion

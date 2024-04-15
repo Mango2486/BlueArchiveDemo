@@ -11,7 +11,7 @@ public class PlayerIdleState : PlayerBaseState
     }
     public override void EnterState()
     {
-        Context.PlayerAnimator.Play("Azusa_Original_Normal_Idle");
+        Context.PlayerAnimator.Play("StandIdle");
     }
 
     public override void UpdateState()
@@ -33,8 +33,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         if (Context.PlayerInput.IsMovePressed)
         {
-            SwitchState(Factory.Run());
-            Debug.Log(CurrentSuperState);
+            SwitchState(Factory.StandMove());
         }
         
     }

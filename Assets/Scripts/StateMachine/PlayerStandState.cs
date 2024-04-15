@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovementState : PlayerBaseState
+public class PlayerStandState : PlayerBaseState
 {
-    public PlayerMovementState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
+    public PlayerStandState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
     {
         IsRootState = true;
         InitialSubState();
@@ -44,11 +44,11 @@ public class PlayerMovementState : PlayerBaseState
         //那么其实就是对于一个根状态，有很多个具体状态作为根状态的子状态备选
         if (Context.PlayerInput.IsMovePressed)
         {
-            SetSubState(Factory.Run());
+            SetSubState(Factory.StandMove());
         }
         else
         {
-            SetSubState(Factory.Idle());
+            SetSubState(Factory.StandIdle());
         }
         Debug.Log(CurrentSubState);
     }

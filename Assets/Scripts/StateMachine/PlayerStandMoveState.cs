@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerRunState : PlayerBaseState
+public class PlayerStandMoveState : PlayerBaseState
 {   
       private Vector3 currentTargetRotation;
       private Vector3 timeToReachTargetRotation;
@@ -10,13 +10,13 @@ public class PlayerRunState : PlayerBaseState
       private Vector3 dampedTargetRotationPassedTime;
    
    
-    public PlayerRunState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
+    public PlayerStandMoveState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
     {
     }
     public override void EnterState()
     {
        Initialize();
-       Context.PlayerAnimator.Play("Azusa_Original_Move_Ing");
+       Context.PlayerAnimator.Play("StandMove");
     }
 
     public override void UpdateState()
@@ -39,7 +39,7 @@ public class PlayerRunState : PlayerBaseState
     {
        if (!Context.PlayerInput.IsMovePressed)
        {
-          SwitchState(Factory.Idle());
+          SwitchState(Factory.StandMoveEnd());
        }
     }
 

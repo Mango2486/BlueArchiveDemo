@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Azusa_Original_Move_End_Normal
+  m_Name: StandMoveEnd
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -33,7 +33,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Azusa_Original_Normal_Attack_Ing
+  m_Name: StandAttack
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -87,7 +87,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Azusa_Original_Normal_Reload
+  m_Name: StandReload
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -113,7 +113,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Azusa_Original_Move_Ing
+  m_Name: StandMove
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -146,16 +146,16 @@ AnimatorStateMachine:
     m_Position: {x: 300, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2948345203065948026}
-    m_Position: {x: 580, y: 110, z: 0}
+    m_Position: {x: 560, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4379745470245447834}
-    m_Position: {x: 580, y: 10, z: 0}
+    m_Position: {x: 560, y: 30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3915516489888730382}
-    m_Position: {x: 300, y: 230, z: 0}
+    m_Position: {x: 290, y: 210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8824409463312775218}
-    m_Position: {x: 580, y: 230, z: 0}
+    m_Position: {x: 560, y: 210, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -173,7 +173,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Azusa_Original_Normal_Idle
+  m_Name: StandIdle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
