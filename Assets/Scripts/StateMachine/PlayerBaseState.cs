@@ -41,18 +41,18 @@ public abstract class PlayerBaseState
       factory = playerStateFactory;
    }
    //进入状态后执行什么
-   public abstract void EnterState();
+   public abstract  void EnterState();
    //该状态的Update，里面一般是逻辑相关
-   public abstract void UpdateState();
+   public abstract  void UpdateState();
    //该状态的FixedUpdate，里面一般放物理相关
-   public abstract void FixedUpdateState();
+   public abstract  void FixedUpdateState();
    //退出状态后执行什么
-   public abstract void ExitState();
+   public abstract  void ExitState();
    //用于判断切换状态的情况
-   public abstract void CheckSwitchStates();
+   public abstract  void CheckSwitchStates();
    
    //HSF的关键所在,只在根状态设置
-   public abstract void InitialSubState();
+   public abstract  void InitialSubState();
    
    protected void SwitchState(PlayerBaseState newState)
    {
