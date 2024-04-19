@@ -36,11 +36,13 @@ public class PlayerStandMoveState : PlayerBaseState
     }
 
     public override void CheckSwitchStates()
-    {
+    { 
+       //停止移动
        if (!Context.PlayerInput.IsMovePressed)
        {
           SwitchState(Factory.StandMoveEnd());
        }
+      
     }
 
     public override void InitialSubState()

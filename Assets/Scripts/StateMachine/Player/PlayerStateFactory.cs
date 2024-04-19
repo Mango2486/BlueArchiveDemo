@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using UnityEngine;
 
 
@@ -9,6 +10,11 @@ public enum PlayerState
     StandIdle,
     StandMove,
     StandMoveEnd,
+    StandAimStart,
+    StandAim,
+    StandAimEnd,
+    StandAttack,
+    StandReload,
 }
 
 
@@ -27,6 +33,11 @@ public class PlayerStateFactory
         states[PlayerState.StandIdle] = new PlayerStandIdleState(context,this);
         states[PlayerState.StandMove] =  new PlayerStandMoveState(context,this);
         states[PlayerState.StandMoveEnd] = new PlayerStandMoveEndState(context, this);
+        states[PlayerState.StandAimStart] = new PlayerStandAimStartState(context, this);
+        states[PlayerState.StandAim] = new playerStandAimState(context, this);
+        states[PlayerState.StandAttack] = new PlayerStandAttackState(context, this);
+        states[PlayerState.StandReload] = new PlayerStandReloadState(context, this);
+        states[PlayerState.StandAimEnd] = new PlayerStandAimEndState(context, this);
     }
 
     #region Create Concrete States
@@ -49,6 +60,31 @@ public class PlayerStateFactory
     public PlayerBaseState StandMoveEnd()
     {
         return states[PlayerState.StandMoveEnd];
+    }
+
+    public PlayerBaseState StandAimStart()
+    {
+        return states[PlayerState.StandAimStart];
+    }
+
+    public PlayerBaseState StandAim()
+    {
+        return states[PlayerState.StandAim];
+    }
+
+    public PlayerBaseState StandAimEnd()
+    {
+        return states[PlayerState.StandAimEnd];
+    }
+
+    public PlayerBaseState StandAttack()
+    {
+        return states[PlayerState.StandAttack];
+    }
+
+    public PlayerBaseState StandReload()
+    {
+        return states[PlayerState.StandReload];
     }
     
     #endregion
