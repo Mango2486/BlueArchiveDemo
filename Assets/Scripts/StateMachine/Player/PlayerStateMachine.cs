@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class PlayerStateMachine : MonoBehaviour
 {
-    [Header("角色形象")] 
-    [SerializeField] private Transform playerVisualTransform;
-    public Transform PlayerVisualTransform { get; private set; }
+    private Transform playerTransform;
+    public Transform PlayerTransform { get; private set; }
     [SerializeField] private Animator playerAnimator;
     public Animator PlayerAnimator { get; private set; }
     [SerializeField] private Rigidbody playerRigidbody;
@@ -18,7 +17,18 @@ public class PlayerStateMachine : MonoBehaviour
     public float BaseSpeed { get; private set; }
     [SerializeField] private float speedModifier = 1f;
     public float SpeedModifier { get; private set; }
-      
+
+    [Header("枪口位置")] 
+    [SerializeField] private Transform muzzleTransform;
+    private Vector3 aimDirection;
+
+    [Header("主摄像机")] 
+    [SerializeField] private Camera mainCamera;
+    
+    public Transform MuzzleTransform => muzzleTransform;
+    public Vector3 AimDirection => aimDirection;
+ 
+
     //状态机相关
     private PlayerBaseState currentState;
     private PlayerStateFactory states;
@@ -38,8 +48,11 @@ public class PlayerStateMachine : MonoBehaviour
     {
         playerInput = GetComponent<PlayerInput>();
         playerRigidbody = GetComponent<Rigidbody>();
+        playerTransform = GetComponent<Transform>();
         
         Initialize();
+        
+        playerInput.SetCamera(mainCamera);
         
         //设置状态机
         states = new PlayerStateFactory(this);//使得PlayerStateFactory实例获得PlayerStateMachine引用。
@@ -64,5 +77,11 @@ public class PlayerStateMachine : MonoBehaviour
         PlayerAnimator = playerAnimator;
         BaseSpeed = baseSpeed;
         SpeedModifier = speedModifier;
+        PlayerTransform = playerTransform;
+    }
+
+    public void SetAimDirection(Vector3 targetDirection)
+    {
+        aimDirection = targetDirection;
     }
 }

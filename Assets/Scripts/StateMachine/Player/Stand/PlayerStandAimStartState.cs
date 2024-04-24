@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerStandAimStartState : PlayerBaseState
 {
@@ -11,8 +12,10 @@ public class PlayerStandAimStartState : PlayerBaseState
 
     private bool isAnimationEnd = false;
     public override void EnterState()
-    {
+    {       
+        //TODO:按下瞄准让人物朝向鼠标所在方向，同时子弹也朝向该方向发射。
         ReSetVelocity();
+        RotateToAimPoint();
         Context.PlayerAnimator.Play("StandAimStart");
     }
 
@@ -75,5 +78,14 @@ public class PlayerStandAimStartState : PlayerBaseState
     private void ReSetVelocity()
     {
         Context.PlayerRigidbody.velocity = Vector3.zero;
+    }
+
+    private void RotateToAimPoint()
+    {
+        Vector3 targetPoint = new Vector3(Context.PlayerInput.MousePosition.x, Context.PlayerTransform.position.y,
+            Context.PlayerInput.MousePosition.z);
+        Context.PlayerTransform.LookAt(targetPoint);
+        Vector3 targetDirection = targetPoint - Context.PlayerTransform.position;
+        Context.SetAimDirection(targetDirection);
     }
 }

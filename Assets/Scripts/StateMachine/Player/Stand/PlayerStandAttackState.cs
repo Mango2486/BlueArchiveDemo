@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UnityEngine;
 
 public class PlayerStandAttackState : PlayerBaseState
@@ -9,10 +10,10 @@ public class PlayerStandAttackState : PlayerBaseState
     }
     
     private float shootInterval = 0.5f;
-    private float currentInterval = 0f;
+    private float currentInterval;
     public override void EnterState()
     {
-        Shoot();
+        currentInterval = shootInterval;
     }
 
     public override void UpdateState()
@@ -65,5 +66,10 @@ public class PlayerStandAttackState : PlayerBaseState
     {
         //先只播放动画
         Context.PlayerAnimator.Play("StandAttack",0,0);
+        //射击子弹
+        GameObject bullet = ObjectPoolManager.Instance.Release(ObjectPoolName.Bullet, Context.MuzzleTransform);
+        bullet.GetComponent<Bullet>().SetMoveDirection(Context.AimDirection);
+  
+
     }
 }

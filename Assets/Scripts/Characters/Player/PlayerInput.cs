@@ -9,12 +9,17 @@ public class PlayerInput : MonoBehaviour
     public Vector2 MoveDirection => inputActions.Player.Move.ReadValue<Vector2>();
     public bool IsMovePressed => MoveDirection != Vector2.zero;
 
+    private Vector3 mousePosition;
+    public Vector3 MousePosition => mousePosition;
+
     public bool IsAttacking { get; set; }
 
     public bool IsAiming { get; set; }
 
 
     private InputActions inputActions;
+
+    private Camera camera;
 
    
     private void OnEnable()
@@ -27,6 +32,26 @@ public class PlayerInput : MonoBehaviour
         inputActions = new InputActions();
         AddListener();
     }
+#if  UNITY_EDITOR
+    private void Update()
+    {
+        //先从摄像机发出射线
+        Ray ray = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        //创建一个用于接收射线的平面
+        //new Plane(法线向量，一个点)
+        //这里以（0，1，0）为法线向量，（0，0，0）为点，创建一个与Y轴垂直的平面。
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        //用于获得射线与平面相交后这段射线的长度
+        float rayDistance;
+        //使射线与平面相交
+        Vector3 point = Vector3.zero;
+        if (groundPlane.Raycast(ray, out rayDistance))
+        {
+            point = ray.GetPoint(rayDistance);
+            Debug.DrawLine(ray.origin,point,Color.red);
+        }
+    }
+#endif
 
     private void OnDisable()
     {
@@ -71,7 +96,9 @@ public class PlayerInput : MonoBehaviour
     }
 
     private void OnAimPerformed(InputAction.CallbackContext obj)
-    {
+    {   
+        //获得当前鼠标落点位置
+        SetMousePosition();
         IsAiming = true;
     }
 
@@ -102,6 +129,33 @@ public class PlayerInput : MonoBehaviour
 
 
     #endregion
-   
+    
+    //获得鼠标所在位置的点的坐标
+    private Vector3 GetMousePointPosition()
+    {
+        //先从摄像机发出射线
+        Ray ray = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        //创建一个用于接收射线的平面
+        //new Plane(法线向量，一个点)
+        //这里以（0，1，0）为法线向量，（0，0，0）为点，创建一个与Y轴垂直的平面。
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        //用于获得射线与平面相交后这段射线的长度
+        float rayDistance;
+        //使射线与平面相交
+        Vector3 point = Vector3.zero;
+        if (groundPlane.Raycast(ray, out rayDistance))
+        {
+          point = ray.GetPoint(rayDistance);
+        }
+        return point;
+    }
+    private void SetMousePosition()
+    {
+        mousePosition = GetMousePointPosition();
+    }
+    public void SetCamera(Camera camera)
+    {
+        this.camera = camera;
+    }
 
 }

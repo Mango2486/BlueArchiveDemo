@@ -37,8 +37,7 @@ public class PlayerStandIdleState : PlayerBaseState
         }
 
         if (Context.PlayerInput.IsAiming)
-        {   
-            Debug.Log(Context.PlayerInput.IsAiming);
+        {
             SwitchState(Factory.StandAimStart());
         }
         
