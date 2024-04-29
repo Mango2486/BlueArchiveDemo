@@ -17,13 +17,9 @@ public class PlayerStandAttackState : PlayerBaseState
     }
 
     public override void UpdateState()
-    {
-        currentInterval += Time.deltaTime;
-        if (currentInterval > shootInterval)
-        {
-            Shoot();
-            currentInterval = 0;
-        }
+    {   
+        Context.RotateToAimPoint();
+        WaitShootInterval();
         CheckSwitchStates();
     }
 
@@ -69,7 +65,16 @@ public class PlayerStandAttackState : PlayerBaseState
         //射击子弹
         GameObject bullet = ObjectPoolManager.Instance.Release(ObjectPoolName.Bullet, Context.MuzzleTransform);
         bullet.GetComponent<Bullet>().SetMoveDirection(Context.AimDirection);
-  
 
+    }
+
+    private void WaitShootInterval()
+    {
+        currentInterval += Time.deltaTime;
+        if (currentInterval > shootInterval)
+        {
+            Shoot();
+            currentInterval = 0;
+        }
     }
 }

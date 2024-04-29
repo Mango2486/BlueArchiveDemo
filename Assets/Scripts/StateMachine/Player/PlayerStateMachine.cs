@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerStateMachine : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class PlayerStateMachine : MonoBehaviour
     
     public Transform MuzzleTransform => muzzleTransform;
     public Vector3 AimDirection => aimDirection;
+
+    public Camera MainCamera => mainCamera;
  
 
     //状态机相关
@@ -80,8 +83,55 @@ public class PlayerStateMachine : MonoBehaviour
         PlayerTransform = playerTransform;
     }
 
+    #region 射击相关
+
+    public void RotateToAimPoint()
+    {   
+        /*
+        Vector3 targetPoint = new Vector3(PlayerInput.MousePosition.x, PlayerTransform.position.y,
+            PlayerInput.MousePosition.z);
+        //targetPoint = new Vector3(targetPoint.x - MuzzleTransform.localPosition.x, targetPoint.y,
+         //   targetPoint.z -  MuzzleTransform.localPosition.z);
+        PlayerTransform.LookAt(targetPoint);
+        */
+        Vector3 targetPoint = new Vector3(GetMousePointPosition().x, PlayerTransform.position.y,
+            GetMousePointPosition().z);
+        PlayerTransform.LookAt(targetPoint);
+        //尝试：因为瞄准的关系，所以鼠标坐标应该跟枪口是正对的，但是转向是整体，所以人物朝向不应该朝向鼠标点，而是鼠标点（即枪口坐标）-枪口本地坐标，得到人物朝向目标点。
+        //解决：是模型问题，本身枪和人身就有一定偏差，固定枪口位置不动，移动人物模型做到匹配即可。
+        Vector3 aimPoint = new Vector3(targetPoint.x, GetMuzzleTransform().position.y, targetPoint.z);
+        Vector3 targetDirection = aimPoint - GetMuzzleTransform().position;
+        SetAimDirection(targetDirection);
+    }
+    
+    private  Vector3 GetMousePointPosition()
+    {
+        //先从摄像机发出射线
+        Ray ray = MainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        //创建一个用于接收射线的平面
+        //new Plane(法线向量，一个点)
+        //这里以（0，1，0）为法线向量，（0，0，0）为点，创建一个与Y轴垂直的平面。
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        //用于获得射线与平面相交后这段射线的长度
+        float rayDistance;
+        //使射线与平面相交
+        Vector3 point = Vector3.zero;
+        if (groundPlane.Raycast(ray, out rayDistance))
+        {
+            point = ray.GetPoint(rayDistance);
+        }
+        return point;
+    }
+
+    #endregion
+
     public void SetAimDirection(Vector3 targetDirection)
     {
         aimDirection = targetDirection;
+    }
+
+    public Transform GetMuzzleTransform()
+    {
+        return muzzleTransform;
     }
 }

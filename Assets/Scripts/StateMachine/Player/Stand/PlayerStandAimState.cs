@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class playerStandAimState : PlayerBaseState
 {
@@ -14,7 +15,8 @@ public class playerStandAimState : PlayerBaseState
     }
 
     public override void UpdateState()
-    {
+    {   
+        Context.RotateToAimPoint();
         CheckSwitchStates();
     }
 
@@ -52,5 +54,6 @@ public class playerStandAimState : PlayerBaseState
        
     }
     
+  
    
 }

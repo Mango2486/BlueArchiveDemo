@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -20,8 +21,7 @@ public class PlayerInput : MonoBehaviour
     private InputActions inputActions;
 
     private Camera camera;
-
-   
+    
     private void OnEnable()
     {
         EnableInput();
@@ -50,6 +50,8 @@ public class PlayerInput : MonoBehaviour
             point = ray.GetPoint(rayDistance);
             Debug.DrawLine(ray.origin,point,Color.red);
         }
+
+        Debug.DrawLine(transform.position, point, Color.red);
     }
 #endif
 
@@ -71,6 +73,7 @@ public class PlayerInput : MonoBehaviour
         inputActions.Player.Aim.canceled += OnAimCanceled;
         inputActions.Player.Attack.performed += OnAttackPerformed;
         inputActions.Player.Attack.canceled += OnAttackCanceled;
+       
     }
 
     private void RemoveListener()
@@ -98,7 +101,8 @@ public class PlayerInput : MonoBehaviour
     private void OnAimPerformed(InputAction.CallbackContext obj)
     {   
         //获得当前鼠标落点位置
-        SetMousePosition();
+        //SetMousePosition();
+        //Debug.Log(MousePosition);
         IsAiming = true;
     }
 
