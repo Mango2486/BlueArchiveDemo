@@ -37,6 +37,11 @@ namespace MVCTest
         {
             enemyModel.Hit();
         }
+
+        public bool EnemyDie()
+        {
+            return enemyModel.CurrentHealth == 0;
+        }
         
     }
 

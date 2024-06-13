@@ -32,7 +32,7 @@ public class PlayerInput : MonoBehaviour
         inputActions = new InputActions();
         AddListener();
     }
-#if  UNITY_EDITOR
+
     private void Update()
     {
         //先从摄像机发出射线
@@ -53,7 +53,7 @@ public class PlayerInput : MonoBehaviour
 
         Debug.DrawLine(transform.position, point, Color.red);
     }
-#endif
+
 
     private void OnDisable()
     {

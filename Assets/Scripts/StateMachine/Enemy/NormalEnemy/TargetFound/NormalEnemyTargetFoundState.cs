@@ -37,6 +37,7 @@ public class NormalEnemyTargetFoundState : NormalEnemyBaseState
         {
             SwitchState(Factory.TargetNotFound());
         }
+        
     }
 
     public override void InitialSubState()

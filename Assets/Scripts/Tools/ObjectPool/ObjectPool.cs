@@ -19,7 +19,7 @@ public class ObjectPool
     private int initCapacity;
     private Transform parentTransform;
 
-    public ObjectPoolName PoolName => ObjectPoolName.Bullet;
+    public ObjectPoolName poolName;
 
     //对象池的功能
     //首先是初始化对象池

@@ -33,7 +33,8 @@ public class NormalEnemyTargetNotFoundState : NormalEnemyBaseState
     public override void CheckSwitchStates()
     {
         if (Context.TargetFound())
-        {
+        {   
+            Context.SetTarget(Context.detector.GetPlayerTransform());
             SwitchState(Factory.TargetFound());
         }
     }

@@ -22,7 +22,7 @@ public class ObjectPoolManager : MonoSingleton<ObjectPoolManager>
     {
         for (int i = 0; i < objectPools.Length; i++)
         {   
-            objectPoolsDictionary.Add(objectPools[i].PoolName,objectPools[i]);
+            objectPoolsDictionary.Add(objectPools[i].poolName,objectPools[i]);
             //这一段是为了对象池生成的对象在Unity面板中便于管理。
             Transform poolParent = new GameObject("Pool: " + objectPools[i].TargetObject.name).transform;
             poolParent.SetParent(transform);
@@ -52,4 +52,5 @@ public class ObjectPoolManager : MonoSingleton<ObjectPoolManager>
 public enum ObjectPoolName
 {
    Bullet = 0,
+   Sweeper = 1,
 }

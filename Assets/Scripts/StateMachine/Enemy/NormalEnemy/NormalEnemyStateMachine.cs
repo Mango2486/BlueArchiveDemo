@@ -16,7 +16,7 @@ public class NormalEnemyStateMachine : MonoBehaviour
     private Transform enemyTransform;
     public Transform EnemyTransform => enemyTransform;
 
-    private PlayerDetector detector;
+    public PlayerDetector detector;
     
     private NormalEnemyBaseState currentState;
     private NormalEnemyStateFactory states;
@@ -38,6 +38,11 @@ public class NormalEnemyStateMachine : MonoBehaviour
         enemyTransform = GetComponent<Transform>();
         detector = GetComponentInChildren<PlayerDetector>();
         
+    }
+    
+    //因为是对象池取用，所以需要将初始化方法放在OnEnable中
+    private void OnEnable()
+    {
         InitialStateMachine();
     }
 
