@@ -34,7 +34,7 @@ public class PlayerStateFactory
         states[PlayerState.StandMove] =  new PlayerStandMoveState(context,this);
         states[PlayerState.StandMoveEnd] = new PlayerStandMoveEndState(context, this);
         states[PlayerState.StandAimStart] = new PlayerStandAimStartState(context, this);
-        states[PlayerState.StandAim] = new playerStandAimState(context, this);
+        states[PlayerState.StandAim] = new PlayerStandAimState(context, this);
         states[PlayerState.StandAttack] = new PlayerStandAttackState(context, this);
         states[PlayerState.StandReload] = new PlayerStandReloadState(context, this);
         states[PlayerState.StandAimEnd] = new PlayerStandAimEndState(context, this);

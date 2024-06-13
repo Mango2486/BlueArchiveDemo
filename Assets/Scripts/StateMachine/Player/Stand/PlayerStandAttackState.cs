@@ -9,7 +9,7 @@ public class PlayerStandAttackState : PlayerBaseState
     {
     }
     
-    private float shootInterval = 0.5f;
+    private float shootInterval = 0.1f;
     private float currentInterval;
     public override void EnterState()
     {

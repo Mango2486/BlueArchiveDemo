@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public abstract class PlayerBaseState
+public abstract class PlayerBaseState : IBaseState
 {
    private bool isRootState = false;
    private PlayerStateMachine context; 
@@ -13,36 +13,28 @@ public abstract class PlayerBaseState
    {
       set { isRootState = value; }
    }
-   protected PlayerStateMachine Context
-   {
-      get { return context; }
-   }
-   
-   protected PlayerStateFactory Factory
-   {
-      get { return factory; }
-   }
-   
-   protected PlayerBaseState CurrentSuperState
-   {
-      get { return currentSuperState; }
-   }
 
-   protected PlayerBaseState CurrentSubState
-   {
-      get { return currentSubState; }
-   }
+   protected PlayerStateMachine Context => context;
+
+   protected PlayerStateFactory Factory => factory;
+
+   protected PlayerBaseState CurrentSuperState => currentSuperState;
+
+   protected PlayerBaseState CurrentSubState => currentSubState;
+  
    
    
    //因为需要获得context和factory，所以直接在Abstract State的构造函数中获取，那么Concrete States中都会继承这个构造器。
-   public PlayerBaseState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
+   protected PlayerBaseState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
    {
       context = currentContext;
       factory = playerStateFactory;
    }
    //进入状态后执行什么
-   public abstract  void EnterState();
+   //public abstract  void EnterState();
    //该状态的Update，里面一般是逻辑相关
+   public abstract void EnterState();
+
    public abstract  void UpdateState();
    //该状态的FixedUpdate，里面一般放物理相关
    public abstract  void FixedUpdateState();

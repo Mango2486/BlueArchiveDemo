@@ -38,8 +38,8 @@ public class PlayerStateMachine : MonoBehaviour
     
     public PlayerBaseState CurrentState
     {
-        get { return currentState;}
-        set { currentState = value; }
+        get => currentState;
+        set => currentState = value;
     }
     
 
