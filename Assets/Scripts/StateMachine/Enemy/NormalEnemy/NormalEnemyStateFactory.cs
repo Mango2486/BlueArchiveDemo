@@ -9,6 +9,7 @@ public enum NormalEnemyState
    Trace,
    TargetNotFound,
    Patrol,
+   Die,
 }
 
 public class NormalEnemyStateFactory
@@ -25,6 +26,7 @@ public class NormalEnemyStateFactory
       states[NormalEnemyState.Trace] = new NormalEnemyTraceState(context, this);
       states[NormalEnemyState.TargetFound] = new NormalEnemyTargetFoundState(context, this);
       states[NormalEnemyState.TargetNotFound] = new NormalEnemyTargetNotFoundState(context, this);
+      states[NormalEnemyState.Die] = new NormalEnemyDieState(context, this);
    }
 
    #region Create Concrete States
@@ -47,6 +49,11 @@ public class NormalEnemyStateFactory
    public NormalEnemyBaseState Patrol()
    {
       return states[NormalEnemyState.Patrol];
+   }
+
+   public NormalEnemyBaseState Die()
+   {
+      return states[NormalEnemyState.Die];
    }
 #endregion
 }

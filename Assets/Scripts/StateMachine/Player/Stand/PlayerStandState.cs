@@ -49,6 +49,5 @@ public class PlayerStandState : PlayerBaseState,IRootState
         {
             SetSubState(Factory.StandIdle());
         }
-        Debug.Log(CurrentSubState);
     }
 }

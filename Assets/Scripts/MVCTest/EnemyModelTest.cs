@@ -41,7 +41,17 @@ namespace MVCTest
         {
             if (CurrentHealth > 0)
             {
-                CurrentHealth -= 10;
+                CurrentHealth -= 20f;
+                CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
+            }
+            UpdateInformation();
+        }
+
+        public void Hit(float damage)
+        {
+            if (CurrentHealth > 0)
+            {
+                CurrentHealth -= damage;
                 CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
             }
             UpdateInformation();

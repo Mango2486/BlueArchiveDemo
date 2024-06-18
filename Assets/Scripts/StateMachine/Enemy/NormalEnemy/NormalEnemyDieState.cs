@@ -10,19 +10,25 @@ public class NormalEnemyDieState : NormalEnemyBaseState
         IsRootState = true;
     }
 
+    private bool isAnimationEnd;
     public override void EnterState()
     {   
+        InitialSubState();
         Debug.Log("Enemy Die");
         //播放死亡动画
         Context.EnemyAnimator.Play("Die");
         //可以加一点爆炸粒子特效之类的？
-
-        //死亡动画播放完后消失，回到敌人对象池
+        
     }
 
     public override void UpdateState()
     {
-        
+        AnimationEnd();
+        if (isAnimationEnd)
+        {
+            //死亡动画播放完后消失，回到敌人对象池
+            ObjectPoolManager.Instance.BackToPool(ObjectPoolName.Sweeper,Context.gameObject);
+        }
     }
 
     public override void FixedUpdateState()
@@ -42,6 +48,20 @@ public class NormalEnemyDieState : NormalEnemyBaseState
 
     public override void InitialSubState()
     {
-       
+       ClearSubState();
+    }
+    
+    private void AnimationEnd()
+    {
+        AnimatorStateInfo animatorStateInfo;
+        animatorStateInfo = Context.EnemyAnimator.GetCurrentAnimatorStateInfo(0);
+        if (animatorStateInfo.normalizedTime >= 1 && animatorStateInfo.IsName("Die"))
+        {
+            isAnimationEnd = true;
+        }
+        else
+        {
+            isAnimationEnd = false;
+        }
     }
 }

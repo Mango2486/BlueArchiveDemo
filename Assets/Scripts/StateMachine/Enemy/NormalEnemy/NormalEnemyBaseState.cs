@@ -81,4 +81,9 @@ public abstract class NormalEnemyBaseState : IBaseState
         currentSubState = newSubState;
         newSubState.SetSuperState(this);
     }
+
+    protected void ClearSubState()
+    {
+        currentSubState = null;
+    }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MVCTest;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,9 +9,9 @@ public class NormalEnemyStateMachine : MonoBehaviour
 {
 
     [SerializeField] private Transform target;
-    private NavMeshAgent navMeshAgent;
-
     [SerializeField] private Animator animator;
+    [SerializeField] private float moveSpeed;
+    private NavMeshAgent navMeshAgent;
     public Animator EnemyAnimator => animator;
 
     private Transform enemyTransform;
@@ -31,19 +32,23 @@ public class NormalEnemyStateMachine : MonoBehaviour
 
     public NavMeshAgent NavMeshAgent => navMeshAgent;
 
+    public EnemyUIController enemyUIController;
+
 
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyTransform = GetComponent<Transform>();
         detector = GetComponentInChildren<PlayerDetector>();
-        
+        enemyUIController = GetComponent<EnemyUIController>();
+
     }
     
     //因为是对象池取用，所以需要将初始化方法放在OnEnable中
     private void OnEnable()
     {
         InitialStateMachine();
+        navMeshAgent.speed = moveSpeed;
     }
 
     private void Update()

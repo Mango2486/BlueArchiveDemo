@@ -84,7 +84,6 @@ public class Bullet : MonoBehaviour
         {
            if (raycastHit.collider.TryGetComponent<EnemyUIController>(out EnemyUIController enemy))
            {
-               Debug.Log("Hit Enemy!");
                enemy.Hit();
                HitSomething();
            }

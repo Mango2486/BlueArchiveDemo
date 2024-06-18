@@ -15,7 +15,10 @@ public class NormalEnemyTraceState : NormalEnemyBaseState
 
     public override void UpdateState()
     {
-        Context.NavMeshAgent.SetDestination(Context.Target.position);
+        if (Context.Target != null)
+        {
+            Context.NavMeshAgent.SetDestination(Context.Target.position);
+        }
     }
 
     public override void FixedUpdateState()

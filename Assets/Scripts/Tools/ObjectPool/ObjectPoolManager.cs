@@ -35,11 +35,18 @@ public class ObjectPoolManager : MonoSingleton<ObjectPoolManager>
     {
         objectPoolsDictionary[objectPoolNameEnum].GetPreparedObject();
     }
-
+    //指定Transform释放
     public GameObject Release(ObjectPoolName objectPoolName, Transform targetTransform)
     {   
         GameObject obejct =  objectPoolsDictionary[objectPoolName].GetPreparedObject();
         obejct.transform.position = targetTransform.position;
+        return obejct;
+    }
+    //指定Position重载
+    public GameObject Release(ObjectPoolName objectPoolName, Vector3 position)
+    {
+        GameObject obejct =  objectPoolsDictionary[objectPoolName].GetPreparedObject();
+        obejct.transform.position = position;
         return obejct;
     }
     //将对象返回池中

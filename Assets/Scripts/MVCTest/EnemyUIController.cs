@@ -13,12 +13,12 @@ namespace MVCTest
 
         private void Awake()
         {
-            enemyModel = new EnemyModelTest(enemyData);
             enemyView = GetComponentInChildren<EnemyViewTest>();
         }
 
-        private void Start()
+        private void OnEnable()
         {
+            InitialEnemyModel();
             enemyModel.Actions += OnEnemyHit;
         }
 
@@ -30,6 +30,12 @@ namespace MVCTest
         
         private void OnEnemyHit(EnemyModelTest enemyModel)
         {
+            enemyView.UpdateUI(enemyModel);
+        }
+
+        private void InitialEnemyModel()
+        {
+            enemyModel = new EnemyModelTest(enemyData);
             enemyView.UpdateUI(enemyModel);
         }
 

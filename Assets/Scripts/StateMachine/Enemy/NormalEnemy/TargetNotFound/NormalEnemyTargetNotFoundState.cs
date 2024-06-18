@@ -27,7 +27,8 @@ public class NormalEnemyTargetNotFoundState : NormalEnemyBaseState
 
     public override void ExitState()
     {
-       Debug.Log("Exit TargetNotFound"); 
+        //把子状态清空
+        ClearSubState();
     }
 
     public override void CheckSwitchStates()
@@ -36,6 +37,11 @@ public class NormalEnemyTargetNotFoundState : NormalEnemyBaseState
         {   
             Context.SetTarget(Context.detector.GetPlayerTransform());
             SwitchState(Factory.TargetFound());
+        }
+        //判断是否死亡
+        if (Context.enemyUIController.EnemyDie())
+        {
+            SwitchState(Factory.Die());
         }
     }
 
