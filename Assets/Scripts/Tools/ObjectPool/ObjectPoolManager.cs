@@ -42,6 +42,14 @@ public class ObjectPoolManager : MonoSingleton<ObjectPoolManager>
         obejct.transform.position = targetTransform.position;
         return obejct;
     }
+    public GameObject Release(ObjectPoolName objectPoolName, Transform targetTransform, float atkData)
+    {   
+        GameObject obejct =  objectPoolsDictionary[objectPoolName].GetPreparedObject();
+        obejct.transform.position = targetTransform.position;
+        Debug.Log("atkData: " + atkData);
+        obejct.GetComponent<Bullet>().SetAtk(atkData);
+        return obejct;
+    }
     //指定Position重载
     public GameObject Release(ObjectPoolName objectPoolName, Vector3 position)
     {

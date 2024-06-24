@@ -22,6 +22,9 @@ public class Bullet : MonoBehaviour
     
     //测试使用刚体   
     
+    //伤害机制测试
+    //先只传单一攻击力，通过ObjectPoolManager在生成子弹时就把当前角色攻击力数据传给子弹
+    private float atk;
     private void OnEnable()
     {   
         //重置计时器
@@ -83,13 +86,14 @@ public class Bullet : MonoBehaviour
         if (Physics.Raycast(startPosition, direction , out raycastHit, distance))
         {
            if (raycastHit.collider.TryGetComponent<EnemyUIController>(out EnemyUIController enemy))
-           {
-               enemy.Hit();
+           {    
+               Debug.Log("atk: " + atk);
+               enemy.Hit(atk);
                HitSomething();
            }
         } 
         startPosition = transform.position;
-       RayTest();
+        RayTest();
     }
     private void HitSomething()
     {
@@ -99,13 +103,21 @@ public class Bullet : MonoBehaviour
     }
 
     #endregion
-   
     
     # region Debug
     private void RayTest()
     {
         Debug.DrawRay(transform.position, moveDirection*rayDistance, Color.red, 0.01f );
     }
+    #endregion
+
+    #region 伤害机制
+
+    public void SetAtk(float atkData)
+    {
+        atk = atkData;
+    }
+
     #endregion
 
   

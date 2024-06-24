@@ -18,6 +18,8 @@ public class PlayerStateMachine : MonoBehaviour
     public float BaseSpeed { get; private set; }
     [SerializeField] private float speedModifier = 1f;
     public float SpeedModifier { get; private set; }
+    [SerializeField] private float atk = 10f;
+    public float ATK => atk;
 
     [Header("枪口位置")] 
     [SerializeField] private Transform muzzleTransform;

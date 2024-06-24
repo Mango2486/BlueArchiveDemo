@@ -871,6 +871,7 @@ MonoBehaviour:
   playerRigidbody: {fileID: 0}
   baseSpeed: 2
   speedModifier: 1
+  atk: 20
   muzzleTransform: {fileID: 1569360780}
   mainCamera: {fileID: 704408390}
 --- !u!54 &972335868

@@ -39,9 +39,9 @@ namespace MVCTest
             enemyView.UpdateUI(enemyModel);
         }
 
-        public void Hit()
+        public void Hit( float atk)
         {
-            enemyModel.Hit();
+            enemyModel.Hit(atk);
         }
 
         public bool EnemyDie()
