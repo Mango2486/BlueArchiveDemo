@@ -30,7 +30,7 @@ namespace MVCTest
         
         private void OnEnemyHit(EnemyModelTest enemyModel)
         {
-            enemyView.UpdateUI(enemyModel);
+            enemyView.UpdateUI(this.enemyModel);
         }
 
         private void InitialEnemyModel()

@@ -9,14 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8739e9bfc5999a459e53ff30dfac76c, type: 3}
-  m_Name: Azusa SO
+  m_Script: {fileID: 11500000, guid: 962cc963c9103d24487968e5472d4e9e, type: 3}
+  m_Name: AzusaSO
   m_EditorClassIdentifier: 
-  moveSpeed: 0
-  speedModifier: 0
-  maxHP: 0
-  currentHP: 0
-  maxShield: 0
-  currentShield: 0
-  attack: 0
-  defend: 0
+  maxHp: 100
+  atk: 20
+  speed: 2
+  armor: 0
+  shield: 0

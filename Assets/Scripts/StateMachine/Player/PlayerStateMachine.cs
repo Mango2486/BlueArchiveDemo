@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MVCTest.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,13 +14,23 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private Rigidbody playerRigidbody;
     public Rigidbody PlayerRigidbody { get; private set; }
 
-    [Header("角色数据")] 
+    [Header("角色UI及数据")] 
+    /*
     [SerializeField] private float baseSpeed = 5f;
     public float BaseSpeed { get; private set; }
     [SerializeField] private float speedModifier = 1f;
     public float SpeedModifier { get; private set; }
     [SerializeField] private float atk = 10f;
     public float ATK => atk;
+    */
+    [SerializeField] private PlayerData playerData;
+    [SerializeField]private PlayerView playerView;
+    private PlayerModel playerModel;
+    public PlayerModel PlayerModel => playerModel;
+    public PlayerView PlayerView => playerView;
+    
+    
+
 
     [Header("枪口位置")] 
     [SerializeField] private Transform muzzleTransform;
@@ -64,6 +75,11 @@ public class PlayerStateMachine : MonoBehaviour
         currentState = states.Stand();//设置初始状态，调用Idle()返回PlayerIdleState实例。
         currentState.EnterState();//调用PlayerIdleState下的EnterState();
     }
+    
+    private void Start()
+    {
+        playerModel.Actions += OnPlayerHit;
+    }
 
     private void Update()
     {
@@ -74,14 +90,20 @@ public class PlayerStateMachine : MonoBehaviour
     {
         currentState.FixedUpdateStates();
     }
+    
+    private void OnDestroy()
+    {
+        playerModel.Actions -= OnPlayerHit;
+    }
 
     private void Initialize()
-    {
+    {   
+        InitializePlayerModel();
         PlayerInput = playerInput;
         PlayerRigidbody = playerRigidbody;
         PlayerAnimator = playerAnimator;
-        BaseSpeed = baseSpeed;
-        SpeedModifier = speedModifier;
+        //BaseSpeed = playerModel.Speed;
+        //SpeedModifier = speedModifier;
         PlayerTransform = playerTransform;
     }
 
@@ -136,4 +158,20 @@ public class PlayerStateMachine : MonoBehaviour
     {
         return muzzleTransform;
     }
+    
+    private void OnPlayerHit(PlayerModel playerModel)
+    {
+        playerView.UpdateUI(this.playerModel);
+    }
+    private void InitializePlayerModel()
+    {
+        playerModel = new PlayerModel(playerData);
+        playerView.UpdateUI(playerModel);
+    }
+    
+    public void GetHit(float atk)
+    {
+        playerModel.GetHit(atk);
+    }
+    
 }

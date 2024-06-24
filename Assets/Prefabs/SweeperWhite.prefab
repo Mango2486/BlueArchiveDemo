@@ -871,7 +871,6 @@ GameObject:
   - component: {fileID: 8102648365441899776}
   - component: {fileID: 8102648365441899779}
   - component: {fileID: 8102648365441899781}
-  - component: {fileID: 8102648365441899778}
   m_Layer: 0
   m_Name: SweeperWhite
   m_TagString: Untagged
@@ -963,18 +962,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: da850c410b7f5f6418b805d4de1fe633, type: 2}
---- !u!114 &8102648365441899778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8102648365441899803}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a4126b869bb301419d55d76773ea005, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8102648365635986202
 GameObject:
   m_ObjectHideFlags: 0
