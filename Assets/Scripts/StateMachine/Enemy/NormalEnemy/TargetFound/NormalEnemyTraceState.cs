@@ -10,6 +10,10 @@ public class NormalEnemyTraceState : NormalEnemyBaseState
 
     public override void EnterState()
     {
+        if (Context.Target != null)
+        {
+            Context.NavMeshAgent.speed = Context.enemyUIController.EnemyModel.Speed;
+        }
         Context.EnemyAnimator.Play("Run");
     }
 

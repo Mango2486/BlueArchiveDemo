@@ -1,3 +1,4 @@
+using Data;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -24,6 +25,8 @@ namespace MVCTest.Player
         public float Speed { get; private set; }
         
         public float Atk { get; private set; }
+        
+        public float InvincibleTime { get; private set; }
 
         private void Initialize()
         {
@@ -33,6 +36,7 @@ namespace MVCTest.Player
             Armor = playerData.armor;
             Speed = playerData.speed;
             Atk = playerData.atk;
+            InvincibleTime = playerData.invincibleTime;
         }
 
         public delegate void UnityAction<PlayerModel>(PlayerModel playerModel);

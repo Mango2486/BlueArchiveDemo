@@ -1,18 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Data;
+using MVCTest;
 using MVCTest.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerStateMachine : MonoBehaviour
-{
+{   
+    [Header("主要组件")]
     private Transform playerTransform;
     public Transform PlayerTransform { get; private set; }
     [SerializeField] private Animator playerAnimator;
     public Animator PlayerAnimator { get; private set; }
     [SerializeField] private Rigidbody playerRigidbody;
     public Rigidbody PlayerRigidbody { get; private set; }
+
+    [SerializeField] private CapsuleCollider playerCollider;
+    
 
     [Header("角色UI及数据")] 
     /*
@@ -28,8 +34,10 @@ public class PlayerStateMachine : MonoBehaviour
     private PlayerModel playerModel;
     public PlayerModel PlayerModel => playerModel;
     public PlayerView PlayerView => playerView;
-    
-    
+
+    [Header("角色材质")] 
+    [SerializeField] private Material[] playerMaterials;
+    private float alpha;
 
 
     [Header("枪口位置")] 
@@ -43,7 +51,8 @@ public class PlayerStateMachine : MonoBehaviour
     public Vector3 AimDirection => aimDirection;
 
     public Camera MainCamera => mainCamera;
- 
+
+    
 
     //状态机相关
     private PlayerBaseState currentState;
@@ -65,6 +74,7 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         playerRigidbody = GetComponent<Rigidbody>();
         playerTransform = GetComponent<Transform>();
+        playerCollider = GetComponent<CapsuleCollider>();
         
         Initialize();
         
@@ -82,7 +92,8 @@ public class PlayerStateMachine : MonoBehaviour
     }
 
     private void Update()
-    {
+    {   
+        
         currentState.UpdateStates();
     }
 
@@ -102,9 +113,9 @@ public class PlayerStateMachine : MonoBehaviour
         PlayerInput = playerInput;
         PlayerRigidbody = playerRigidbody;
         PlayerAnimator = playerAnimator;
-        //BaseSpeed = playerModel.Speed;
-        //SpeedModifier = speedModifier;
         PlayerTransform = playerTransform;
+        alpha = 1f;
+        SetAlpha(alpha);
     }
 
     #region 射击相关
@@ -169,9 +180,44 @@ public class PlayerStateMachine : MonoBehaviour
         playerView.UpdateUI(playerModel);
     }
     
-    public void GetHit(float atk)
-    {
+    private void GetHit(float atk)
+    {   
+        //更新UI
         playerModel.GetHit(atk);
+        //进入无敌时间
+        StartCoroutine(InvincibleTimer());
     }
     
+    //受击暂时不单独作为一个状态使用
+    //受击无敌协程
+    private IEnumerator InvincibleTimer()
+    {
+        alpha = 0.5f;
+        SetAlpha(alpha);
+        playerCollider.enabled = false;
+        yield return new WaitForSeconds(playerModel.InvincibleTime);
+        alpha = 1f;
+        SetAlpha(alpha);
+        playerCollider.enabled = true;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {   
+        //受敌人撞击
+        if (other.gameObject.TryGetComponent<EnemyUIController>(out EnemyUIController enemyUIController))
+        {
+            GetHit(enemyUIController.EnemyModel.Atk);
+        }
+    }
+    
+    //设置材质颜色值，使得角色变透明
+    //受击效果1：角色半透明 目前采用
+    //受击效果2：角色闪烁
+    private void SetAlpha(float targetAlpha)
+    {
+        foreach (var render in playerMaterials)
+        {
+            render.SetColor("_Color", new Color(1,1,1,targetAlpha));
+        }
+    }
 }

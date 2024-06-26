@@ -1,28 +1,27 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using MVCTest;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyViewTest : MonoBehaviour
+namespace MVCTest.Enemy
 {
-   [SerializeField]private Image hpBar;
-
-   private void Update()
-   {  
-      //TODO:保持血条位置不会随着人物旋转而旋转
-      //暂时挂一个Update
-      transform.rotation = Quaternion.identity;
-
-
-   }
-
-   public void UpdateUI(EnemyModelTest model)
+   public class EnemyViewTest : MonoBehaviour
    {
-      // ReSharper disable once PossibleLossOfFraction
-      hpBar.fillAmount = model.CurrentHealth / model.MaxHealth;
-   }
+      [SerializeField]private Image hpBar;
+
+      private void Update()
+      {  
+         //TODO:保持血条位置不会随着人物旋转而旋转
+         //暂时挂一个Update
+         transform.rotation = Quaternion.identity;
+
+
+      }
+
+      public void UpdateUI(EnemyModelTest model)
+      {
+         // ReSharper disable once PossibleLossOfFraction
+         hpBar.fillAmount = model.CurrentHp / model.MaxHp;
+      }
    
   
+   }
 }

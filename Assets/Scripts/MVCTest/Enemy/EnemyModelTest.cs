@@ -1,3 +1,4 @@
+using Data;
 using UnityEngine;
 
 namespace MVCTest
@@ -6,7 +7,7 @@ namespace MVCTest
     public class EnemyModelTest
     {
 
-        public EnemyModelTest(EnemyDataTest enemyData)
+        public EnemyModelTest(EnemyData enemyData)
         {
             SetEnemyData(enemyData);
             Initialize();
@@ -14,10 +15,18 @@ namespace MVCTest
         
         
         
-        public EnemyDataTest enemyData;
-        public float MaxHealth { get; private set; }
+        public EnemyData enemyData;
+        public float MaxHp { get; private set; }
 
-        public float CurrentHealth { get; private set; }
+        public float CurrentHp { get; private set; }
+        
+        public float Atk { get; private set; }
+        
+        public float Speed { get; private set; }
+        
+        public float Armor { get; private set; }
+        
+        public float Shield { get; private set; }
         
         //用于接受需要与数据联动的方法
         public delegate void UnityAction<EnemyModelTest>(EnemyModelTest enemyModel);
@@ -26,8 +35,12 @@ namespace MVCTest
         
         private void Initialize()
         {
-            MaxHealth = enemyData.maxHealth;
-            CurrentHealth = enemyData.currentHealth;
+            MaxHp = enemyData.maxHp;
+            CurrentHp = MaxHp;
+            Atk = enemyData.atk;
+            Speed = enemyData.speed;
+            Armor = enemyData.armor;
+            Shield = enemyData.shield;
         }
         
         //当数据更新的时候，通知UI也更新
@@ -39,25 +52,25 @@ namespace MVCTest
         
         public void Hit()
         {
-            if (CurrentHealth > 0)
+            if (CurrentHp > 0)
             {
-                CurrentHealth -= 20f;
-                CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
+                CurrentHp -= 20f;
+                CurrentHp = Mathf.Clamp(CurrentHp, 0, MaxHp);
             }
             UpdateInformation();
         }
 
         public void Hit(float damage)
         {
-            if (CurrentHealth > 0)
+            if (CurrentHp > 0)
             {
-                CurrentHealth -= damage;
-                CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
+                CurrentHp -= damage;
+                CurrentHp = Mathf.Clamp(CurrentHp, 0, MaxHp);
             }
             UpdateInformation();
         }
 
-        private  void SetEnemyData(EnemyDataTest enemyData)
+        private  void SetEnemyData(EnemyData enemyData)
         {
             this.enemyData = enemyData;
         }

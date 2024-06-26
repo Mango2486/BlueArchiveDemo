@@ -1,10 +1,10 @@
 using UnityEngine;
 
-namespace MVCTest.Player
+namespace Data
 {   
-    [CreateAssetMenu()]
-    public class PlayerData : ScriptableObject
-    {   
+    [CreateAssetMenu(menuName = "Data/Enemy", fileName = "EnemyData" )]
+    public class EnemyData : ScriptableObject
+    {
         [Header("血量")]
         public float maxHp;
         [Header("攻击力")]

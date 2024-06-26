@@ -1,4 +1,5 @@
 using System;
+using Data;
 using UnityEngine;
 
 namespace MVCTest.Player

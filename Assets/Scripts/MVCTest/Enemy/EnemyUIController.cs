@@ -1,15 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Data;
+using MVCTest.Enemy;
 using UnityEngine;
 
 namespace MVCTest
 {
     public class EnemyUIController : MonoBehaviour
     {
-        [SerializeField] private EnemyDataTest enemyData;
+        [SerializeField] private EnemyData enemyData;
         private EnemyViewTest enemyView;
         private EnemyModelTest enemyModel;
+        
+        public EnemyModelTest EnemyModel => enemyModel;
 
         private void Awake()
         {
@@ -46,7 +50,7 @@ namespace MVCTest
 
         public bool EnemyDie()
         {
-            return enemyModel.CurrentHealth == 0;
+            return enemyModel.CurrentHp == 0;
         }
         
     }
