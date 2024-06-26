@@ -4,9 +4,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerStandAimStartState : PlayerBaseState
+public class PlayerAimStartState : PlayerBaseState
 {
-    public PlayerStandAimStartState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
+    public PlayerAimStartState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
     {
     }
 
@@ -42,17 +42,17 @@ public class PlayerStandAimStartState : PlayerBaseState
         {
             if (Context.PlayerInput.IsAiming)
             {
-                SwitchState(Factory.StandAim());
+                SwitchState(Factory.Aim());
             }
             else
             {
-                SwitchState(Factory.StandAimEnd());
+                SwitchState(Factory.AimEnd());
             }
         }
         //移动放弃瞄准
         if (Context.PlayerInput.IsMovePressed)
         {
-            SwitchState(Factory.StandMove());
+            SwitchState(Factory.Move());
         }
     }
 

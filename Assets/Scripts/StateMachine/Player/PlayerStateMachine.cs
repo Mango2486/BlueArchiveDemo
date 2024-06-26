@@ -19,44 +19,44 @@ public class PlayerStateMachine : MonoBehaviour
 
     [SerializeField] private CapsuleCollider playerCollider;
     
-
-    [Header("角色UI及数据")] 
-    /*
-    [SerializeField] private float baseSpeed = 5f;
-    public float BaseSpeed { get; private set; }
-    [SerializeField] private float speedModifier = 1f;
-    public float SpeedModifier { get; private set; }
-    [SerializeField] private float atk = 10f;
-    public float ATK => atk;
-    */
+    [Header("角色UI及数据")]
     [SerializeField] private PlayerData playerData;
+    
     [SerializeField]private PlayerView playerView;
+    
     private PlayerModel playerModel;
     public PlayerModel PlayerModel => playerModel;
     public PlayerView PlayerView => playerView;
 
     [Header("角色材质")] 
     [SerializeField] private Material[] playerMaterials;
+    
     private float alpha;
-
-
+    
     [Header("枪口位置")] 
     [SerializeField] private Transform muzzleTransform;
+    
     private Vector3 aimDirection;
-
+    
     [Header("主摄像机")] 
     [SerializeField] private Camera mainCamera;
     
     public Transform MuzzleTransform => muzzleTransform;
     public Vector3 AimDirection => aimDirection;
-
     public Camera MainCamera => mainCamera;
-
     
-
     //状态机相关
     private PlayerBaseState currentState;
     private PlayerStateFactory states;
+
+    private bool hurt;
+    public bool Hurt => hurt;
+    
+    
+    //用于接收攻击的敌人的数据
+    public float HurtDamage { get; private set; }
+    
+    
     
     public PlayerBaseState CurrentState
     {
@@ -82,7 +82,7 @@ public class PlayerStateMachine : MonoBehaviour
         
         //设置状态机
         states = new PlayerStateFactory(this);//使得PlayerStateFactory实例获得PlayerStateMachine引用。
-        currentState = states.Stand();//设置初始状态，调用Idle()返回PlayerIdleState实例。
+        currentState = states.Normal();//设置初始状态，调用Idle()返回PlayerIdleState实例。
         currentState.EnterState();//调用PlayerIdleState下的EnterState();
     }
     
@@ -122,13 +122,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void RotateToAimPoint()
     {   
-        /*
-        Vector3 targetPoint = new Vector3(PlayerInput.MousePosition.x, PlayerTransform.position.y,
-            PlayerInput.MousePosition.z);
-        //targetPoint = new Vector3(targetPoint.x - MuzzleTransform.localPosition.x, targetPoint.y,
-         //   targetPoint.z -  MuzzleTransform.localPosition.z);
-        PlayerTransform.LookAt(targetPoint);
-        */
+        
         Vector3 targetPoint = new Vector3(GetMousePointPosition().x, PlayerTransform.position.y,
             GetMousePointPosition().z);
         PlayerTransform.LookAt(targetPoint);
@@ -157,9 +151,7 @@ public class PlayerStateMachine : MonoBehaviour
         }
         return point;
     }
-
-    #endregion
-
+    
     public void SetAimDirection(Vector3 targetDirection)
     {
         aimDirection = targetDirection;
@@ -170,6 +162,10 @@ public class PlayerStateMachine : MonoBehaviour
         return muzzleTransform;
     }
     
+    
+    #endregion
+
+    
     private void OnPlayerHit(PlayerModel playerModel)
     {
         playerView.UpdateUI(this.playerModel);
@@ -179,11 +175,10 @@ public class PlayerStateMachine : MonoBehaviour
         playerModel = new PlayerModel(playerData);
         playerView.UpdateUI(playerModel);
     }
-    
-    private void GetHit(float atk)
+    public void GetHurt(float damage)
     {   
         //更新UI
-        playerModel.GetHit(atk);
+        playerModel.GetHurt(damage);
         //进入无敌时间
         StartCoroutine(InvincibleTimer());
     }
@@ -199,14 +194,16 @@ public class PlayerStateMachine : MonoBehaviour
         alpha = 1f;
         SetAlpha(alpha);
         playerCollider.enabled = true;
+        hurt = false;
     }
-
+    
     private void OnCollisionEnter(Collision other)
-    {   
-        //受敌人撞击
+    {
+        //给出碰撞信号
         if (other.gameObject.TryGetComponent<EnemyUIController>(out EnemyUIController enemyUIController))
         {
-            GetHit(enemyUIController.EnemyModel.Atk);
+            hurt = true;
+            HurtDamage = enemyUIController.EnemyModel.Atk;
         }
     }
     

@@ -41,7 +41,7 @@ namespace MVCTest.Player
 
         public void GetHit(float atk)
         {
-            playerModel.GetHit(atk);
+            playerModel.GetHurt(atk);
         }
     }
 }

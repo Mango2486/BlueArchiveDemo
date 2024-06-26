@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using UnityEngine;
 
-public class PlayerStandAttackState : PlayerBaseState
+public class PlayerAttackState : PlayerBaseState
 {
-    public PlayerStandAttackState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
+    public PlayerAttackState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
     {
     }
-    
-    private float shootInterval = 0.1f;
     private float currentInterval;
     public override void EnterState()
     {
-        currentInterval = shootInterval;
+        currentInterval = Context.PlayerModel.ShootInterval;
     }
 
     public override void UpdateState()
@@ -38,17 +36,17 @@ public class PlayerStandAttackState : PlayerBaseState
        //停止射击但是还是瞄准状态
        if (Context.PlayerInput.IsAiming && !Context.PlayerInput.IsAttacking)
        {
-           SwitchState(Factory.StandAim());
+           SwitchState(Factory.Aim());
        }
        //停止射击并且停止瞄准
        if (!Context.PlayerInput.IsAttacking && !Context.PlayerInput.IsAiming)
        {
-           SwitchState(Factory.StandAimEnd());
+           SwitchState(Factory.AimEnd());
        }
        //移动
        if (Context.PlayerInput.IsMovePressed)
        {
-           SwitchState(Factory.StandMove());
+           SwitchState(Factory.Move());
        }
        
     }
@@ -71,7 +69,7 @@ public class PlayerStandAttackState : PlayerBaseState
     private void WaitShootInterval()
     {
         currentInterval += Time.deltaTime;
-        if (currentInterval > shootInterval)
+        if (currentInterval > Context.PlayerModel.ShootInterval)
         {
             Shoot();
             currentInterval = 0;

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class PlayerStandAimState : PlayerBaseState
+public class PlayerAimState : PlayerBaseState
 {
-    public PlayerStandAimState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
+    public PlayerAimState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
     {
     }
     
@@ -34,17 +34,17 @@ public class PlayerStandAimState : PlayerBaseState
         //松开瞄准
         if (!Context.PlayerInput.IsAiming)
         {
-            SwitchState(Factory.StandAimEnd());
+            SwitchState(Factory.AimEnd());
         }
         //移动
         if (Context.PlayerInput.IsMovePressed)
         {
-            SwitchState(Factory.StandMove());
+            SwitchState(Factory.Move());
         }
         //射击
         if (Context.PlayerInput.IsAttacking)
         {
-            SwitchState(Factory.StandAttack());
+            SwitchState(Factory.Attack());
         }
     }
 

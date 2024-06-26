@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStandIdleState : PlayerBaseState
+public class PlayerIdleState : PlayerBaseState
 {   
-    public PlayerStandIdleState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
+    public PlayerIdleState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
     {
        
        
@@ -33,12 +33,12 @@ public class PlayerStandIdleState : PlayerBaseState
     {
         if (Context.PlayerInput.IsMovePressed)
         {
-            SwitchState(Factory.StandMove());
+            SwitchState(Factory.Move());
         }
 
         if (Context.PlayerInput.IsAiming)
         {
-            SwitchState(Factory.StandAimStart());
+            SwitchState(Factory.AimStart());
         }
         
     }

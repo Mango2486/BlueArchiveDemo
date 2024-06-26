@@ -2,27 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStandAimEndState : PlayerBaseState
+public class PlayerMoveEndState : PlayerBaseState
 {
-    public PlayerStandAimEndState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
+    public PlayerMoveEndState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
     {
     }
 
     private bool isAnimationEnd = false;
+    
     public override void EnterState()
     {
-       Context.PlayerAnimator.Play("StandAimEnd");
+        ReSetVelocity();
+        Context.PlayerAnimator.Play("StandMoveEnd");
     }
 
     public override void UpdateState()
-    {
+    {   
         AnimationEnd();
         CheckSwitchStates();
     }
 
     public override void FixedUpdateState()
     {
-       
+      
     }
 
     public override void ExitState()
@@ -32,33 +34,33 @@ public class PlayerStandAimEndState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {   
-        //无操作
+        //无操作播放动画
         if (isAnimationEnd)
         {
-            SwitchState(Factory.StandIdle());
-        }
-        //重新瞄准
-        if (Context.PlayerInput.IsAiming)
-        {
-            SwitchState(Factory.StandAimStart());
+            SwitchState(Factory.Idle());
         }
         //移动
-        if (Context.PlayerInput.IsMovePressed)
+        else if (Context.PlayerInput.MoveDirection != Vector2.zero)
         {
-            SwitchState(Factory.StandMove());
+            SwitchState(Factory.Move());
+        }
+        //瞄准
+        if (Context.PlayerInput.IsAiming)
+        {
+            SwitchState(Factory.AimStart());
         }
     }
 
     public override void InitialSubState()
     {
-
+       
     }
-    
+
     private void AnimationEnd()
     {
         AnimatorStateInfo animatorStateInfo;
         animatorStateInfo = Context.PlayerAnimator.GetCurrentAnimatorStateInfo(0);
-        if (animatorStateInfo.normalizedTime >= 1 && animatorStateInfo.IsName("StandAimStart"))
+        if (animatorStateInfo.normalizedTime >= 1 && animatorStateInfo.IsName("StandMoveEnd"))
         {
             isAnimationEnd = true;
         }
@@ -66,5 +68,10 @@ public class PlayerStandAimEndState : PlayerBaseState
         {
             isAnimationEnd = false;
         }
+    }
+
+    private void ReSetVelocity()
+    {
+        Context.PlayerRigidbody.velocity = Vector3.zero;
     }
 }

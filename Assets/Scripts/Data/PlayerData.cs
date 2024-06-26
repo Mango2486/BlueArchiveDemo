@@ -13,6 +13,8 @@ namespace Data
         public float speed;
         [Header("受击无敌时间")] 
         public float invincibleTime;
+        [Header("射击间隔")]
+        public float shootInterval;
         [Header("护甲值")] 
         public float armor;
         [Header("护盾值")] 

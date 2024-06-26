@@ -27,6 +27,8 @@ namespace MVCTest.Player
         public float Atk { get; private set; }
         
         public float InvincibleTime { get; private set; }
+        
+        public float ShootInterval { get; private set; }
 
         private void Initialize()
         {
@@ -37,6 +39,7 @@ namespace MVCTest.Player
             Speed = playerData.speed;
             Atk = playerData.atk;
             InvincibleTime = playerData.invincibleTime;
+            ShootInterval = playerData.shootInterval;
         }
 
         public delegate void UnityAction<PlayerModel>(PlayerModel playerModel);
@@ -47,15 +50,8 @@ namespace MVCTest.Player
             Actions?.Invoke(this);
         }
 
-        public void GetHit(float damage)
+        public void GetHurt(float damage)
         {
-            /*
-                if (CurrentHp > 0)
-                {   
-                    CurrentHp -= damage;
-                    CurrentHp = Mathf.Clamp(CurrentHp, 0, MaxHp);
-                }
-            */
             if (CurrentHp > 0)
             {
                 CurrentHp -= damage;

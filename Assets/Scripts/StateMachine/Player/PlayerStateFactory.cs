@@ -6,15 +6,17 @@ using UnityEngine;
 
 public enum PlayerState
 {
-    Stand,
-    StandIdle,
-    StandMove,
-    StandMoveEnd,
-    StandAimStart,
-    StandAim,
-    StandAimEnd,
-    StandAttack,
-    StandReload,
+    Idle,
+    Move,
+    MoveEnd,
+    AimStart,
+    Aim,
+    AimEnd,
+    Attack,
+    Reload,
+    Normal,
+    Hurt,
+    Dead,
 }
 
 
@@ -29,62 +31,74 @@ public class PlayerStateFactory
     public PlayerStateFactory (PlayerStateMachine currentContext)
     {
         context = currentContext;
-        states[PlayerState.Stand] = new PlayerStandState(context, this);
-        states[PlayerState.StandIdle] = new PlayerStandIdleState(context,this);
-        states[PlayerState.StandMove] =  new PlayerStandMoveState(context,this);
-        states[PlayerState.StandMoveEnd] = new PlayerStandMoveEndState(context, this);
-        states[PlayerState.StandAimStart] = new PlayerStandAimStartState(context, this);
-        states[PlayerState.StandAim] = new PlayerStandAimState(context, this);
-        states[PlayerState.StandAttack] = new PlayerStandAttackState(context, this);
-        states[PlayerState.StandReload] = new PlayerStandReloadState(context, this);
-        states[PlayerState.StandAimEnd] = new PlayerStandAimEndState(context, this);
+        states[PlayerState.Normal] = new PlayerNormalState(context, this);
+        states[PlayerState.Idle] = new PlayerIdleState(context,this);
+        states[PlayerState.Move] =  new PlayerMoveState(context,this);
+        states[PlayerState.MoveEnd] = new PlayerMoveEndState(context, this);
+        states[PlayerState.AimStart] = new PlayerAimStartState(context, this);
+        states[PlayerState.Aim] = new PlayerAimState(context, this);
+        states[PlayerState.AimEnd] = new PlayerAimEndState(context, this);
+        states[PlayerState.Attack] = new PlayerAttackState(context, this);
+        states[PlayerState.Reload] = new PlayerReloadState(context, this);
+        states[PlayerState.Hurt] = new PlayerHurtState(context, this);
+        states[PlayerState.Dead] = new PlayerDeadState(context, this);
     }
 
     #region Create Concrete States
 
-    public PlayerBaseState Stand()
+    public PlayerBaseState Normal()
     {
-        return states[PlayerState.Stand];
+        return states[PlayerState.Normal];
     }
     
-    public PlayerBaseState StandIdle()
+    public PlayerBaseState Idle()
     {
-        return states[PlayerState.StandIdle];
+        return states[PlayerState.Idle];
     }
 
-    public PlayerBaseState StandMove()
+    public PlayerBaseState Move()
     {
-        return states[PlayerState.StandMove];
+        return states[PlayerState.Move];
     }
     
-    public PlayerBaseState StandMoveEnd()
+    public PlayerBaseState MoveEnd()
     {
-        return states[PlayerState.StandMoveEnd];
+        return states[PlayerState.MoveEnd];
     }
 
-    public PlayerBaseState StandAimStart()
+    public PlayerBaseState AimStart()
     {
-        return states[PlayerState.StandAimStart];
+        return states[PlayerState.AimStart];
     }
 
-    public PlayerBaseState StandAim()
+    public PlayerBaseState Aim()
     {
-        return states[PlayerState.StandAim];
+        return states[PlayerState.Aim];
     }
 
-    public PlayerBaseState StandAimEnd()
+    public PlayerBaseState AimEnd()
     {
-        return states[PlayerState.StandAimEnd];
+        return states[PlayerState.AimEnd];
     }
 
-    public PlayerBaseState StandAttack()
+    public PlayerBaseState Attack()
     {
-        return states[PlayerState.StandAttack];
+        return states[PlayerState.Attack];
     }
 
-    public PlayerBaseState StandReload()
+    public PlayerBaseState Reload()
     {
-        return states[PlayerState.StandReload];
+        return states[PlayerState.Reload];
+    }
+
+    public PlayerBaseState Hurt()
+    {
+        return states[PlayerState.Hurt];
+    }
+
+    public PlayerBaseState Dead()
+    {
+        return states[PlayerState.Dead];
     }
     
     #endregion

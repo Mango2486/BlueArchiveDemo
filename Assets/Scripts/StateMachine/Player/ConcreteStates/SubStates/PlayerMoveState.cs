@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStandMoveState : PlayerBaseState
+public class PlayerMoveState : PlayerBaseState
 {   
       private Vector3 currentTargetRotation;
       private Vector3 timeToReachTargetRotation;
@@ -10,7 +10,7 @@ public class PlayerStandMoveState : PlayerBaseState
       private Vector3 dampedTargetRotationPassedTime;
    
    
-    public PlayerStandMoveState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
+    public PlayerMoveState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
     {
     }
     public override void EnterState()
@@ -40,7 +40,7 @@ public class PlayerStandMoveState : PlayerBaseState
        //停止移动
        if (!Context.PlayerInput.IsMovePressed)
        {
-          SwitchState(Factory.StandMoveEnd());
+          SwitchState(Factory.MoveEnd());
        }
       
     }
