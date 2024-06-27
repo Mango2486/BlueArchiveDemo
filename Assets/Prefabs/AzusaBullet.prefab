@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeTime: 3
-  moveSpeed: 30
+  moveSpeed: 10
   rayDistance: 0.25
 --- !u!1 &4658915751509886165
 GameObject:
@@ -188,7 +188,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.03
+  m_Time: 0.02
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -196,8 +196,26 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.28194237
-        value: 0.036132812
+        time: 0.099664986
+        value: 0.009902954
+        inSlope: -0.5609211
+        outSlope: -0.5609211
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 1
+      - serializedVersion: 3
+        time: 0.3303123
+        value: 0.029704705
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.47963572
+        value: 0.13861689
         inSlope: 0
         outSlope: 0
         tangentMode: 0

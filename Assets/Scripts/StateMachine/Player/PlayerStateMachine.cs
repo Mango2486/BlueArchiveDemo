@@ -160,8 +160,23 @@ public class PlayerStateMachine : MonoBehaviour
     {
         return muzzleTransform;
     }
-    
-    
+
+    public void Attack()
+    {
+        StartCoroutine(Shoot());
+    }
+    IEnumerator Shoot()
+    {
+        //先只播放动画
+        PlayerAnimator.Play("Attack",0,0);
+        //射击子弹
+        for (int i = 0; i < 3; i++)
+        {
+            GameObject bullet = ObjectPoolManager.Instance.Release(ObjectPoolName.Bullet, MuzzleTransform, PlayerModel.Atk);
+            bullet.GetComponent<Bullet>().SetMoveDirection(AimDirection);
+            yield return new WaitForSeconds(0.02f);
+        }
+    }
     #endregion
 
     

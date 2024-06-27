@@ -58,12 +58,7 @@ public class PlayerAttackState : PlayerBaseState
 
     private void Shoot()
     {
-        //先只播放动画
-        Context.PlayerAnimator.Play("Attack",0,0);
-        //射击子弹
-        GameObject bullet = ObjectPoolManager.Instance.Release(ObjectPoolName.Bullet, Context.MuzzleTransform, Context.PlayerModel.Atk);
-        bullet.GetComponent<Bullet>().SetMoveDirection(Context.AimDirection);
-
+        Context.Attack();
     }
 
     private void WaitShootInterval()
@@ -72,7 +67,7 @@ public class PlayerAttackState : PlayerBaseState
         if (currentInterval > Context.PlayerModel.ShootInterval)
         {
             Shoot();
-            currentInterval = 0;
+           currentInterval = 0f;
         }
     }
 }
