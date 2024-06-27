@@ -42,7 +42,6 @@ public class PlayerNormalState : PlayerBaseState
             {
                 SwitchState(Factory.Hurt());
             }
-            //2.受击致命，进入死亡状态
         }
        
     }

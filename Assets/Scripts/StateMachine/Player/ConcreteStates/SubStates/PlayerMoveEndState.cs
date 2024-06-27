@@ -13,7 +13,7 @@ public class PlayerMoveEndState : PlayerBaseState
     public override void EnterState()
     {
         ReSetVelocity();
-        Context.PlayerAnimator.Play("StandMoveEnd");
+        Context.PlayerAnimator.Play("MoveEnd");
     }
 
     public override void UpdateState()

@@ -16,7 +16,8 @@ public class PlayerAimStartState : PlayerBaseState
         //TODO:按下瞄准让人物朝向鼠标所在方向，同时子弹也朝向该方向发射。
         ReSetVelocity();
         Context.RotateToAimPoint();
-        Context.PlayerAnimator.Play("StandAimStart");
+        Debug.Log("Enter AimStart");
+        Context.PlayerAnimator.Play("AimStart");
     }
 
     public override void UpdateState()
@@ -65,7 +66,7 @@ public class PlayerAimStartState : PlayerBaseState
     {
         AnimatorStateInfo animatorStateInfo;
         animatorStateInfo = Context.PlayerAnimator.GetCurrentAnimatorStateInfo(0);
-        if (animatorStateInfo.normalizedTime >= 1 && animatorStateInfo.IsName("StandAimStart"))
+        if (animatorStateInfo.normalizedTime >= 1 && animatorStateInfo.IsName("AimStart"))
         {
             isAnimationEnd = true;
         }

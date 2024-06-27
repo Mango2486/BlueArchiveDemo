@@ -871,6 +871,7 @@ GameObject:
   - component: {fileID: 8102648365441899776}
   - component: {fileID: 8102648365441899779}
   - component: {fileID: 8102648365441899781}
+  - component: {fileID: 798866331}
   m_Layer: 0
   m_Name: SweeperWhite
   m_TagString: Untagged
@@ -906,10 +907,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.33
-  m_Height: 1.49
+  m_Radius: 0.30720103
+  m_Height: 1.3863257
   m_Direction: 1
-  m_Center: {x: 0, y: -0.25, z: 0}
+  m_Center: {x: 0, y: -0.30183715, z: 0.022798955}
 --- !u!195 &8102648365441899776
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -919,7 +920,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 8102648365441899803}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.2
   m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -928,7 +929,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 0.94
+  m_Height: 1
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 2
@@ -962,6 +963,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: cf3a18816faab844f88800e71df2efa0, type: 2}
+--- !u!54 &798866331
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8102648365441899803}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &8102648365635986202
 GameObject:
   m_ObjectHideFlags: 0

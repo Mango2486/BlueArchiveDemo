@@ -11,7 +11,7 @@ public class PlayerAimEndState : PlayerBaseState
     private bool isAnimationEnd = false;
     public override void EnterState()
     {
-       Context.PlayerAnimator.Play("StandAimEnd");
+       Context.PlayerAnimator.Play("AimEnd");
     }
 
     public override void UpdateState()

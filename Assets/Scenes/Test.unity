@@ -983,7 +983,7 @@ GameObject:
   - component: {fileID: 972335866}
   - component: {fileID: 972335867}
   - component: {fileID: 972335869}
-  - component: {fileID: 972335868}
+  - component: {fileID: 972335870}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1048,7 +1048,21 @@ MonoBehaviour:
   - {fileID: 2100000, guid: b966d293068115345ac62a545b0919ff, type: 2}
   muzzleTransform: {fileID: 1569360780}
   mainCamera: {fileID: 704408390}
---- !u!54 &972335868
+--- !u!136 &972335869
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972335860}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 0.89
+  m_Direction: 1
+  m_Center: {x: -0.11, y: 0.38746965, z: 0}
+--- !u!54 &972335870
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1064,20 +1078,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!136 &972335869
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 972335860}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.3
-  m_Height: 0.89
-  m_Direction: 1
-  m_Center: {x: -0.11, y: 0.38746965, z: 0}
 --- !u!1 &1054350313
 GameObject:
   m_ObjectHideFlags: 0
@@ -5640,7 +5640,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25022
+  m_Name: pb_Mesh25026
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

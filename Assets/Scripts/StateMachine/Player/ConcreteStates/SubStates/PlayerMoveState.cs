@@ -16,7 +16,7 @@ public class PlayerMoveState : PlayerBaseState
     public override void EnterState()
     {
        Initialize();
-       Context.PlayerAnimator.Play("StandMove");
+       Context.PlayerAnimator.Play("Move");
     }
 
     public override void UpdateState()

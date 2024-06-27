@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sweeper
   m_EditorClassIdentifier: 
   maxHp: 50
-  atk: 5
+  atk: 50
   speed: 1.5
   armor: 0
   shield: 0

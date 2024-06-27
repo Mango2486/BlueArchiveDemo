@@ -16,5 +16,6 @@ MonoBehaviour:
   atk: 20
   speed: 2
   invincibleTime: 1.5
+  shootInterval: 0.5
   armor: 0
   shield: 0

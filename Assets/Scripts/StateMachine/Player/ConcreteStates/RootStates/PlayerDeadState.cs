@@ -11,31 +11,27 @@ public class PlayerDeadState : PlayerBaseState
 
     public override void EnterState()
     {
-        throw new System.NotImplementedException();
+        //TODO: 播放死亡动画，给出死亡信号，游戏结束呼出UI
+        Context.PlayerAnimator.Play("Dead");
     }
 
     public override void UpdateState()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void FixedUpdateState()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void ExitState()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void CheckSwitchStates()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void InitialSubState()
     {
-        throw new System.NotImplementedException();
     }
 }

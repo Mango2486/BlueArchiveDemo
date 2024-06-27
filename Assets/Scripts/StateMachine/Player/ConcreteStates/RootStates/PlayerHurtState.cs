@@ -34,9 +34,14 @@ public class PlayerHurtState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (!Context.Hurt)
+        if (Context.PlayerModel.CurrentHp != 0 && !Context.Hurt)
         {
             SwitchState(Factory.Normal());
+        }
+
+        if (Context.PlayerModel.CurrentHp == 0 && Context.Hurt)
+        {
+            SwitchState(Factory.Dead());
         }
     }
 

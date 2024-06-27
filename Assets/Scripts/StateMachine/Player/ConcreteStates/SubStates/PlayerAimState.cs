@@ -9,8 +9,9 @@ public class PlayerAimState : PlayerBaseState
     }
     
     public override void EnterState()
-    {
-        Context.PlayerAnimator.Play("StandAim");
+    {   
+        Debug.Log("Enter Aim");
+        Context.PlayerAnimator.Play("Aim");
     }
 
     public override void UpdateState()

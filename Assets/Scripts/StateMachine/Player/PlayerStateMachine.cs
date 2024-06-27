@@ -93,7 +93,6 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void Update()
     {   
-        
         currentState.UpdateStates();
     }
 
@@ -179,8 +178,11 @@ public class PlayerStateMachine : MonoBehaviour
     {   
         //更新UI
         playerModel.GetHurt(damage);
-        //进入无敌时间
-        StartCoroutine(InvincibleTimer());
+        //看当前血量是否进入进入无敌时间
+        if (playerModel.CurrentHp != 0)
+        {
+            StartCoroutine(InvincibleTimer());
+        }
     }
     
     //受击暂时不单独作为一个状态使用
@@ -189,19 +191,25 @@ public class PlayerStateMachine : MonoBehaviour
     {
         alpha = 0.5f;
         SetAlpha(alpha);
-        playerCollider.enabled = false;
+        playerCollider.isTrigger= true;
         yield return new WaitForSeconds(playerModel.InvincibleTime);
         alpha = 1f;
         SetAlpha(alpha);
-        playerCollider.enabled = true;
+        playerCollider.isTrigger = false;
         hurt = false;
     }
     
     private void OnCollisionEnter(Collision other)
     {
         //给出碰撞信号
-        if (other.gameObject.TryGetComponent<EnemyUIController>(out EnemyUIController enemyUIController))
+        if (other.gameObject.TryGetComponent(out NormalEnemyStateMachine stateMachine))
         {
+            Debug.Log("发生碰撞");
+        }
+        
+        if (other.gameObject.TryGetComponent<EnemyUIController>(out EnemyUIController enemyUIController))
+        {   
+            Debug.Log("发生碰撞");
             hurt = true;
             HurtDamage = enemyUIController.EnemyModel.Atk;
         }

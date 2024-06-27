@@ -11,7 +11,7 @@ public class PlayerIdleState : PlayerBaseState
     }
     public override void EnterState()
     {
-        Context.PlayerAnimator.Play("StandIdle");
+        Context.PlayerAnimator.Play("Idle");
     }
 
     public override void UpdateState()
