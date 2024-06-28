@@ -15,6 +15,10 @@ namespace Data
         public float invincibleTime;
         [Header("射击间隔")]
         public float shootInterval;
+        [Header("等级")] 
+        public int level;
+        [Header("经验值")] 
+        public float[] maxExp;
         [Header("护甲值")] 
         public float armor;
         [Header("护盾值")] 

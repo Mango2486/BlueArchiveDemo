@@ -13,9 +13,19 @@ MonoBehaviour:
   m_Name: AzusaSO
   m_EditorClassIdentifier: 
   maxHp: 100
-  atk: 20
+  atk: 10
   speed: 2
   invincibleTime: 1.5
-  shootInterval: 0.5
+  shootInterval: 0.3
+  level: 1
+  maxExp:
+  - 0
+  - 50
+  - 100
+  - 150
+  - 200
+  - 250
+  - 300
+  - 350
   armor: 0
   shield: 0

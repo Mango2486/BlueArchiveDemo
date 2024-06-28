@@ -16,7 +16,6 @@ public class PlayerAimStartState : PlayerBaseState
         //TODO:按下瞄准让人物朝向鼠标所在方向，同时子弹也朝向该方向发射。
         ReSetVelocity();
         Context.RotateToAimPoint();
-        Debug.Log("Enter AimStart");
         Context.PlayerAnimator.Play("AimStart");
     }
 

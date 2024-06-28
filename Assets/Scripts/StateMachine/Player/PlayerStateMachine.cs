@@ -64,7 +64,6 @@ public class PlayerStateMachine : MonoBehaviour
         set => currentState = value;
     }
     
-
     private PlayerInput playerInput;
     public PlayerInput PlayerInput { get; private set; }
     
@@ -89,7 +88,9 @@ public class PlayerStateMachine : MonoBehaviour
     private void Start()
     {
         playerModel.Actions += OnPlayerHit;
+        playerModel.Actions += OnGetExp;
     }
+    
 
     private void Update()
     {   
@@ -104,6 +105,7 @@ public class PlayerStateMachine : MonoBehaviour
     private void OnDestroy()
     {
         playerModel.Actions -= OnPlayerHit;
+        playerModel.Actions -= OnGetExp;
     }
 
     private void Initialize()
@@ -173,22 +175,34 @@ public class PlayerStateMachine : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             GameObject bullet = ObjectPoolManager.Instance.Release(ObjectPoolName.Bullet, MuzzleTransform, PlayerModel.Atk);
-            bullet.GetComponent<Bullet>().SetMoveDirection(AimDirection);
+            //取出来的物体不为空时，说明还有子弹，则进行设置并且发射
+            if (bullet != null)
+            {
+                bullet.GetComponent<Bullet>().SetMoveDirection(AimDirection);
+            }
             yield return new WaitForSeconds(0.02f);
         }
     }
     #endregion
 
-    
-    private void OnPlayerHit(PlayerModel playerModel)
+    #region MVCController
+    private void OnGetExp(PlayerModel model)
     {
-        playerView.UpdateUI(this.playerModel);
+        playerView.UpdateExpUI(playerModel);
     }
+    
+    private void OnPlayerHit(PlayerModel model)
+    {
+        playerView.UpdateHpUI(playerModel);
+    }
+    
     private void InitializePlayerModel()
     {
         playerModel = new PlayerModel(playerData);
-        playerView.UpdateUI(playerModel);
+        playerView.UpdateHpUI(playerModel);
+        PlayerView.UpdateExpUI(playerModel);
     }
+    
     public void GetHurt(float damage)
     {   
         //更新UI
@@ -199,6 +213,13 @@ public class PlayerStateMachine : MonoBehaviour
             StartCoroutine(InvincibleTimer());
         }
     }
+
+    public void GetExp(float exp)
+    {
+        playerModel.GetExp(exp);
+    }
+    #endregion
+   
     
     //受击暂时不单独作为一个状态使用
     //受击无敌协程
@@ -213,18 +234,10 @@ public class PlayerStateMachine : MonoBehaviour
         playerCollider.isTrigger = false;
         hurt = false;
     }
-    
     private void OnCollisionEnter(Collision other)
     {
-        //给出碰撞信号
-        if (other.gameObject.TryGetComponent(out NormalEnemyStateMachine stateMachine))
-        {
-            Debug.Log("发生碰撞");
-        }
-        
         if (other.gameObject.TryGetComponent<EnemyUIController>(out EnemyUIController enemyUIController))
-        {   
-            Debug.Log("发生碰撞");
+        {
             hurt = true;
             HurtDamage = enemyUIController.EnemyModel.Atk;
         }

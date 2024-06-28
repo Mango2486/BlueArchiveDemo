@@ -31,12 +31,12 @@ namespace MVCTest.Player
 
         private void OnPlayerHit(PlayerModel playerModel)
         {
-            playerView.UpdateUI(this.playerModel);
+            playerView.UpdateHpUI(this.playerModel);
         }
         private void InitializePlayerModel()
         {
             playerModel = new PlayerModel(playerData);
-            playerView.UpdateUI(playerModel);
+            playerView.UpdateHpUI(playerModel);
         }
 
         public void GetHit(float atk)
