@@ -70,4 +70,6 @@ public enum ObjectPoolName
 {
    Bullet = 0,
    Sweeper = 1,
+   ExpBall = 2,
+   
 }

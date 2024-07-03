@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Data
@@ -17,11 +18,13 @@ namespace Data
         public float shootInterval;
         [Header("等级")] 
         public int level;
-        [Header("经验值")] 
+        [Header("升级所需经验值")] 
         public float[] maxExp;
         [Header("护甲值")] 
         public float armor;
         [Header("护盾值")] 
         public float shield;
+        
+
     }
 }

@@ -34,6 +34,8 @@ public class NormalEnemyStateMachine : MonoBehaviour
 
     public EnemyUIController enemyUIController;
 
+    [Header("掉落物")] 
+    [SerializeField] private GameObject expBall;
 
     private void Awake()
     {

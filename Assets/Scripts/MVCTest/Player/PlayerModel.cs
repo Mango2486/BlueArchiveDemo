@@ -1,30 +1,29 @@
+using System;
+using System.Collections.Generic;
 using Data;
 using Unity.VisualScripting;
 using UnityEngine;
 
 namespace MVCTest.Player
-{
+{   
+    [Serializable]
     public class PlayerModel
     {
         public PlayerModel(PlayerData playerData)
         {
+            Instance = this;
             SetData(playerData);
             Initialize();
         }
 
-        public PlayerData playerData;
+        private PlayerData playerData;
+
+        public static PlayerModel Instance { get;private set; }
         
-        public float MaxHp { get; private set; }
+        //字典中存放可更改的属性
+        private  Dictionary<string, float> propDictionary = new Dictionary<string, float>();
         
         public float CurrentHp { get; private set; }
-        
-        public float Shield { get; private set; }
-
-        public float Armor { get; private set; }
-        
-        public float Speed { get; private set; }
-        
-        public float Atk { get; private set; }
         
         public float InvincibleTime { get; private set; }
         
@@ -35,20 +34,19 @@ namespace MVCTest.Player
         public float Exp { get; private set; }
 
         public int Level { get; private set; }
+        
+        public Dictionary<string, float> PropDictionary { get; private set; }
 
         private void Initialize()
         {
-            MaxHp = playerData.maxHp;
-            CurrentHp = MaxHp;
-            Shield = playerData.shield;
-            Armor = playerData.armor;
-            Speed = playerData.speed;
-            Atk = playerData.atk;
+          
+            CurrentHp = playerData.maxHp;
             InvincibleTime = playerData.invincibleTime;
             ShootInterval = playerData.shootInterval;
             MaxExp = playerData.maxExp;
             Level = playerData.level;
             Exp = 0f;
+            InitDictionary();
         }
 
         public delegate void UnityAction<PlayerModel>(PlayerModel playerModel);
@@ -64,7 +62,7 @@ namespace MVCTest.Player
             if (CurrentHp > 0)
             {
                 CurrentHp -= damage;
-                CurrentHp = Mathf.Clamp(CurrentHp, 0, MaxHp);
+                CurrentHp = Mathf.Clamp(CurrentHp, 0, propDictionary["MaxHp"]);
             }
             UpdateInformation();
         }
@@ -86,6 +84,18 @@ namespace MVCTest.Player
         private void SetData(PlayerData playerData)
         {
             this.playerData = playerData;
+        }
+
+
+        private void InitDictionary()
+        {   
+            //会更改的数据使用字典对应存储。
+            propDictionary.Add("MaxHp", playerData.maxHp);
+            propDictionary.Add("Atk", playerData.atk);
+            propDictionary.Add("Armor", playerData.armor);
+            propDictionary.Add("Speed", playerData.speed);
+            propDictionary.Add("Shield", playerData.shield);
+            PropDictionary = propDictionary;
         }
     }
 }

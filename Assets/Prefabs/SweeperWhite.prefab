@@ -950,6 +950,7 @@ MonoBehaviour:
   moveSpeed: 1.5
   detector: {fileID: 0}
   enemyUIController: {fileID: 0}
+  expBall: {fileID: 5404434146372989058, guid: ae1ac46d668457742958199858960ba0, type: 3}
 --- !u!114 &8102648365441899781
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Data;
 using MVCTest;
 using MVCTest.Player;
+using Properties;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -87,10 +88,21 @@ public class PlayerStateMachine : MonoBehaviour
     
     private void Start()
     {
-        playerModel.Actions += OnPlayerHit;
-        playerModel.Actions += OnGetExp;
+      Subscribe();
     }
     
+    //点击Buff相关逻辑
+    private void OnClickGetBuff(object sender, BuffModel e)
+    {
+        foreach (var kv in e.DataDictionary)
+        {
+            if (kv.Value != 0)
+            {
+                playerModel.PropDictionary[kv.Key] += kv.Value;
+            }
+        }
+    }
+
 
     private void Update()
     {   
@@ -104,8 +116,7 @@ public class PlayerStateMachine : MonoBehaviour
     
     private void OnDestroy()
     {
-        playerModel.Actions -= OnPlayerHit;
-        playerModel.Actions -= OnGetExp;
+       Unsubscribe();
     }
 
     private void Initialize()
@@ -171,10 +182,11 @@ public class PlayerStateMachine : MonoBehaviour
     {
         //先只播放动画
         PlayerAnimator.Play("Attack",0,0);
-        //射击子弹
+        //射击子弹  
+        Debug.Log(PlayerModel.PropDictionary["Atk"]);
         for (int i = 0; i < 3; i++)
         {
-            GameObject bullet = ObjectPoolManager.Instance.Release(ObjectPoolName.Bullet, MuzzleTransform, PlayerModel.Atk);
+            GameObject bullet = ObjectPoolManager.Instance.Release(ObjectPoolName.Bullet, MuzzleTransform, PlayerModel.PropDictionary["Atk"]);
             //取出来的物体不为空时，说明还有子弹，则进行设置并且发射
             if (bullet != null)
             {
@@ -242,7 +254,16 @@ public class PlayerStateMachine : MonoBehaviour
             HurtDamage = enemyUIController.EnemyModel.Atk;
         }
     }
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<ExpBall>(out ExpBall expBall))
+        {
+            GetExp(expBall.data.exp);
+            expBall.SelfDestroy();
+        }
+    }
+
     //设置材质颜色值，使得角色变透明
     //受击效果1：角色半透明 目前采用
     //受击效果2：角色闪烁
@@ -251,6 +272,26 @@ public class PlayerStateMachine : MonoBehaviour
         foreach (var render in playerMaterials)
         {
             render.SetColor("_Color", new Color(1,1,1,targetAlpha));
+        }
+    }
+
+    private void Subscribe()
+    {
+        playerModel.Actions += OnPlayerHit;
+        playerModel.Actions += OnGetExp;
+        for (int i = 0; i < BuffUIController.Instance.BuffView.GetBuffTemplateList().Count; i++)
+        {
+            BuffUIController.Instance.BuffView.GetBuffTemplateList()[i].GetBuff += OnClickGetBuff;
+        }
+    }
+
+    private void Unsubscribe()
+    {
+        playerModel.Actions -= OnPlayerHit;
+        playerModel.Actions -= OnGetExp;
+        for (int i = 0; i < BuffUIController.Instance.BuffView.GetBuffTemplateList().Count; i++)
+        {
+            BuffUIController.Instance.BuffView.GetBuffTemplateList()[i].GetBuff -= OnClickGetBuff;
         }
     }
 }

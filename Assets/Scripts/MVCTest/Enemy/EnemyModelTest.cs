@@ -13,9 +13,7 @@ namespace MVCTest
             Initialize();
         }
         
-        
-        
-        public EnemyData enemyData;
+        private EnemyData enemyData;
         public float MaxHp { get; private set; }
 
         public float CurrentHp { get; private set; }

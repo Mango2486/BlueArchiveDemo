@@ -135,7 +135,7 @@ public class PlayerMoveState : PlayerBaseState
     //获得指定的移动速度
     private float GetMovementSpeed()
       {
-         return Context.PlayerModel.Speed;
+         return Context.PlayerModel.PropDictionary["Speed"];
       }
       
     //获得水平方向的移动速度

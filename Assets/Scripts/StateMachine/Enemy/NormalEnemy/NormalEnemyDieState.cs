@@ -14,7 +14,6 @@ public class NormalEnemyDieState : NormalEnemyBaseState
     public override void EnterState()
     {   
         InitialSubState();
-        Debug.Log("Enemy Die");
         //播放死亡动画
         Context.EnemyAnimator.Play("Die");
         //可以加一点爆炸粒子特效之类的？
@@ -26,6 +25,7 @@ public class NormalEnemyDieState : NormalEnemyBaseState
         AnimationEnd();
         if (isAnimationEnd)
         {
+            ObjectPoolManager.Instance.Release(ObjectPoolName.ExpBall, new Vector3(Context.transform.position.x, 0.1f, Context.transform.position.z));
             //死亡动画播放完后消失，回到敌人对象池
             ObjectPoolManager.Instance.BackToPool(ObjectPoolName.Sweeper,Context.gameObject);
         }
