@@ -12,7 +12,7 @@ public class BuffModel
    
    // [SerializeField]private int buffId;
     [SerializeField]private string buffName;
-    [SerializeField]private Image buffImage;
+    [SerializeField]private Sprite buffImage;
     [SerializeField]private BuffData[] buffDatas = new BuffData[3];
     
     private Dictionary<string, float> dataDictionary = new Dictionary<string, float>();
@@ -23,7 +23,7 @@ public class BuffModel
     public float Atk { get; private set; }
     
     public Dictionary<string, float> DataDictionary { get; private set; }
-    public Image BuffImage => buffImage;
+    public Sprite BuffImage => buffImage;
     public string BuffName => buffName;
 
     public bool initialed;

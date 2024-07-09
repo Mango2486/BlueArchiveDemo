@@ -8,6 +8,7 @@ public class BuffUIMain : MonoBehaviour
     {   
         Subscribe();
         BuffUIController.Instance.BuffView.UpdateBuffUI(BuffUIController.Instance.GenerateBuff());
+        BuffUIController.Instance.BuffView.UpdateDataUI();
 
     }
     private void OnDisable()

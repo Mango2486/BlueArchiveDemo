@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using MVCTest.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +15,7 @@ public class BuffView : MonoBehaviour
         public Image dataImage;
         public TextMeshProUGUI nameText;
         public TextMeshProUGUI valueText;
+        
     }
 
     [SerializeField] 
@@ -21,7 +24,15 @@ public class BuffView : MonoBehaviour
     [SerializeField] 
     private List<DataTemplate> dataTemplateList;
 
-    
+    [SerializeField] 
+    private BuffUIDataModel buffUIDataModel;
+
+    private void Awake()
+    {
+        buffUIDataModel = new BuffUIDataModel();
+    }
+
+
     //显示当前抽取的Buff的相关信息
     public void UpdateBuffUI(BuffModel[] buffModels)
     {
@@ -32,7 +43,7 @@ public class BuffView : MonoBehaviour
             buffModels[i].GetBuffData();
             if (buffModels[i].BuffImage != null)
             {
-                buffTemplateList[i].buffImage = buffModels[i].BuffImage;
+                buffTemplateList[i].buffImage.sprite = buffModels[i].BuffImage;
             }
             buffTemplateList[i].nameText.text = buffModels[i].BuffName;
             //显示Buff拥有属性极其数据
@@ -49,9 +60,20 @@ public class BuffView : MonoBehaviour
         }
     }
     //显示本次抽取Buff前角色的数据信息
-    public void UpdateDataUI(BuffModel[] buffModels)
+    public void UpdateDataUI()
     {
-        
+        int index = 0; 
+        buffUIDataModel.SetDataDictionary(PlayerModel.Instance.PropDictionary);
+        foreach (var kv in buffUIDataModel.DataDictionary)
+        {
+            if (dataTemplateList[index].dataImage != null && buffUIDataModel.PropertyImage[index] != null)
+            {
+                dataTemplateList[index].dataImage.sprite = buffUIDataModel.PropertyImage[index];
+            }
+            dataTemplateList[index].nameText.text = kv.Key;
+            dataTemplateList[index].valueText.text = kv.Value.ToString(CultureInfo.InvariantCulture);
+            index++;
+        }
     }
 
     public List<BuffTemplate> GetBuffTemplateList()
